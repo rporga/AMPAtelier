@@ -1,0 +1,4347 @@
+<html data-type="html" data-identifier="e7d9417d-45b1-4239-bc2f-17d31c6b7b90" data-title="AMP Studio Atelier" data-version="1" width="1440" height="900" imagemodel="imagen-4"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AMP Studio Atelier</title>
+    <style>
+        :root {
+            --amp: #0874ad;
+            --amp-dark: #075b89;
+            --amp-soft: #e5f4fb;
+            --nav: #0d1b2d;
+            --nav-soft: #172940;
+            --ink: #122033;
+            --muted: #66758a;
+            --line: #e1e8ef;
+            --canvas: #f4f7fa;
+            --white: #ffffff;
+            --green: #16835f;
+            --green-soft: #e7f6ef;
+            --orange: #c56b22;
+            --orange-soft: #fff3e7;
+            --purple: #7158b7;
+            --purple-soft: #f0ecfb;
+            --red: #b9414f;
+            --red-soft: #fdecef;
+            --shadow: 0 16px 40px rgba(26, 45, 69, 0.09);
+            --shadow-small: 0 6px 18px rgba(26, 45, 69, 0.08);
+            --radius: 18px;
+            --radius-small: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-width: 600px;
+            min-height: 500px;
+            width: 100%;
+            height: 100%;
+            background: var(--canvas);
+            color: var(--ink);
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        .app-shell {
+            display: grid;
+            grid-template-columns: 258px minmax(0, 1fr);
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: 258px;
+            display: flex;
+            flex-direction: column;
+            background:
+                radial-gradient(circle at 20% 15%, rgba(25, 127, 178, 0.22), transparent 28%),
+                linear-gradient(180deg, #0c1c2e 0%, #0c1726 100%);
+            color: #d6e1ec;
+            padding: 23px 17px 18px;
+            z-index: 20;
+        }
+
+        .brand-lockup {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 7px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .logo-frame {
+            position: relative;
+            flex: 0 0 61px;
+            height: 45px;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            background: #fff;
+        }
+
+        .logo-frame img {
+            display: block;
+            width: 57px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            color: #ffffff;
+            font-size: 15px;
+            line-height: 1.15;
+            font-weight: 750;
+            letter-spacing: -0.01em;
+        }
+
+        .brand-caption {
+            color: #87a0b8;
+            font-size: 10px;
+            line-height: 1.4;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .workspace-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 18px 7px 16px;
+            padding: 10px 11px;
+            border: 1px solid rgba(101, 190, 229, 0.18);
+            border-radius: 10px;
+            background: rgba(30, 109, 151, 0.13);
+            color: #a8d9ef;
+            font-size: 11px;
+            font-weight: 650;
+        }
+
+        .workspace-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4ec7f3;
+            box-shadow: 0 0 0 4px rgba(78, 199, 243, 0.12);
+        }
+
+        .nav-label {
+            padding: 0 12px 7px;
+            color: #627b94;
+            font-size: 10px;
+            font-weight: 750;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .nav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item {
+            position: relative;
+            width: 100%;
+            border: 0;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 11px 12px;
+            border-radius: 10px;
+            background: transparent;
+            color: #aab8c7;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: left;
+            transition: 160ms ease;
+        }
+
+        .nav-item:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.055);
+        }
+
+        .nav-item.active {
+            color: #ffffff;
+            background: linear-gradient(90deg, rgba(8, 116, 173, 0.34), rgba(8, 116, 173, 0.15));
+            box-shadow: inset 3px 0 0 #4fc2ee;
+        }
+
+        .nav-icon {
+            width: 21px;
+            height: 21px;
+            display: grid;
+            place-items: center;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #94cfe9;
+            font-size: 12px;
+        }
+
+        .nav-item.active .nav-icon {
+            background: rgba(79, 194, 238, 0.17);
+            color: #ffffff;
+        }
+
+        .sidebar-spacer {
+            flex: 1;
+        }
+
+        .sidebar-support {
+            margin: 14px 7px;
+            padding: 14px;
+            border-radius: 13px;
+            background: linear-gradient(145deg, rgba(8, 116, 173, 0.3), rgba(255, 255, 255, 0.045));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .support-label {
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .support-copy {
+            margin-top: 5px;
+            color: #91a9bf;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .support-button {
+            width: 100%;
+            margin-top: 11px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 8px;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .user-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 5px 7px 0;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .avatar {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 34px;
+            border-radius: 50%;
+            color: #ffffff;
+            background: linear-gradient(145deg, #1285bd, #075b89);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .user-name {
+            color: #edf5fa;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .user-role {
+            color: #718ba4;
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        .main-area {
+            grid-column: 2;
+            min-width: 0;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 15;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 0 30px;
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(16px);
+        }
+
+        .breadcrumb {
+            min-width: 160px;
+        }
+
+        .breadcrumb-kicker {
+            color: #8794a5;
+            font-size: 9px;
+            font-weight: 750;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .breadcrumb-current {
+            margin-top: 4px;
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 750;
+        }
+
+        .top-search {
+            position: relative;
+            flex: 1;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        .top-search input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #dce4ec;
+            border-radius: 11px;
+            outline: none;
+            padding: 0 72px 0 40px;
+            color: var(--ink);
+            background: #f7f9fb;
+            transition: 160ms ease;
+        }
+
+        .top-search input:focus {
+            border-color: #76bddd;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(8, 116, 173, 0.09);
+        }
+
+        .search-symbol {
+            position: absolute;
+            left: 14px;
+            top: 10px;
+            color: #8492a2;
+            font-size: 16px;
+        }
+
+        .shortcut {
+            position: absolute;
+            right: 9px;
+            top: 8px;
+            padding: 4px 7px;
+            border: 1px solid #d9e1e9;
+            border-radius: 6px;
+            color: #7f8b99;
+            background: #ffffff;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .icon-button {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border: 1px solid #dce4eb;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #647386;
+            font-size: 15px;
+        }
+
+        .primary-button,
+        .secondary-button {
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-size: 11px;
+            font-weight: 750;
+            transition: 150ms ease;
+        }
+
+        .primary-button {
+            border: 1px solid var(--amp);
+            background: var(--amp);
+            color: #ffffff;
+            box-shadow: 0 7px 17px rgba(8, 116, 173, 0.2);
+        }
+
+        .primary-button:hover {
+            background: var(--amp-dark);
+            border-color: var(--amp-dark);
+            transform: translateY(-1px);
+        }
+
+        .secondary-button {
+            border: 1px solid #d8e1e9;
+            background: #ffffff;
+            color: var(--ink);
+        }
+
+        .content {
+            padding: 27px 30px 46px;
+        }
+
+        .view {
+            display: none;
+            animation: reveal 260ms ease;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero {
+            position: relative;
+            min-height: 248px;
+            overflow: hidden;
+            border-radius: 23px;
+            padding: 34px 38px;
+            color: #ffffff;
+            background:
+                radial-gradient(circle at 82% 40%, rgba(65, 190, 233, 0.34), transparent 28%),
+                radial-gradient(circle at 62% 100%, rgba(42, 137, 187, 0.22), transparent 33%),
+                linear-gradient(120deg, #0c243a 0%, #0d4568 55%, #0874ad 100%);
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.18;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.85) 0.8px, transparent 0.8px);
+            background-size: 18px 18px;
+            mask-image: linear-gradient(90deg, transparent 42%, #000 100%);
+        }
+
+        .hero-watermark {
+            position: absolute;
+            right: -12px;
+            bottom: -52px;
+            font-family: Georgia, serif;
+            font-size: 200px;
+            font-style: italic;
+            font-weight: 700;
+            letter-spacing: -0.08em;
+            color: rgba(255, 255, 255, 0.065);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 710px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 16px;
+            padding: 6px 9px;
+            border: 1px solid rgba(255, 255, 255, 0.17);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.09);
+            color: #cfeffc;
+            font-size: 9px;
+            font-weight: 750;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            max-width: 650px;
+            margin: 0;
+            color: #ffffff;
+            font-size: clamp(32px, 3.4vw, 49px);
+            line-height: 1.02;
+            letter-spacing: -0.045em;
+        }
+
+        .hero p {
+            max-width: 620px;
+            margin: 15px 0 0;
+            color: #c7d9e6;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 23px;
+        }
+
+        .hero-primary,
+        .hero-secondary {
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 11px;
+            font-weight: 750;
+        }
+
+        .hero-primary {
+            border: 1px solid #ffffff;
+            background: #ffffff;
+            color: #0b5f8c;
+        }
+
+        .hero-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.21);
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .principle-strip {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 11px;
+            margin-top: 15px;
+        }
+
+        .principle-card {
+            min-height: 90px;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: #ffffff;
+            box-shadow: var(--shadow-small);
+        }
+
+        .principle-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--amp);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .principle-title {
+            margin-top: 9px;
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 750;
+        }
+
+        .principle-copy {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 340px;
+            gap: 18px;
+            margin-top: 24px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 13px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            color: var(--ink);
+            font-size: 18px;
+            letter-spacing: -0.025em;
+        }
+
+        .section-heading p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .text-button {
+            border: 0;
+            padding: 5px;
+            color: var(--amp);
+            background: transparent;
+            font-size: 10px;
+            font-weight: 750;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 11px;
+        }
+
+        .collection-card {
+            min-height: 128px;
+            border: 1px solid var(--line);
+            border-radius: 15px;
+            padding: 16px;
+            text-align: left;
+            background: #ffffff;
+            transition: 160ms ease;
+            box-shadow: 0 4px 14px rgba(24, 47, 71, 0.04);
+        }
+
+        .collection-card:hover {
+            transform: translateY(-2px);
+            border-color: #b7d8e8;
+            box-shadow: var(--shadow-small);
+        }
+
+        .collection-icon {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 9px;
+            color: var(--amp);
+            background: var(--amp-soft);
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .collection-icon.orange {
+            color: var(--orange);
+            background: var(--orange-soft);
+        }
+
+        .collection-icon.purple {
+            color: var(--purple);
+            background: var(--purple-soft);
+        }
+
+        .collection-icon.green {
+            color: var(--green);
+            background: var(--green-soft);
+        }
+
+        .collection-title {
+            margin-top: 12px;
+            color: var(--ink);
+            font-size: 12px;
+            font-weight: 750;
+        }
+
+        .collection-copy {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.45;
+        }
+
+        .collection-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: #8c98a7;
+            font-size: 9px;
+            font-weight: 650;
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: #ffffff;
+            box-shadow: 0 5px 18px rgba(24, 47, 71, 0.045);
+        }
+
+        .assistant-panel {
+            overflow: hidden;
+        }
+
+        .assistant-head {
+            padding: 18px;
+            color: #ffffff;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.2), transparent 28%),
+                linear-gradient(135deg, #075f90, #0a83bb);
+        }
+
+        .assistant-name {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .assistant-spark {
+            width: 26px;
+            height: 26px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .assistant-intro {
+            margin-top: 8px;
+            color: #d6eff9;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .assistant-body {
+            padding: 15px;
+        }
+
+        .assistant-input {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 7px;
+        }
+
+        .assistant-input input {
+            min-width: 0;
+            height: 38px;
+            border: 1px solid #dce5ec;
+            border-radius: 9px;
+            outline: none;
+            padding: 0 11px;
+            background: #f7f9fb;
+            color: var(--ink);
+            font-size: 10px;
+        }
+
+        .assistant-input button {
+            width: 38px;
+            height: 38px;
+            border: 0;
+            border-radius: 9px;
+            color: #ffffff;
+            background: var(--amp);
+        }
+
+        .prompt-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .prompt-chip {
+            border: 1px solid #dfe7ed;
+            border-radius: 999px;
+            padding: 6px 8px;
+            color: #627287;
+            background: #ffffff;
+            font-size: 9px;
+        }
+
+        .assistant-answer {
+            margin-top: 11px;
+            padding: 12px;
+            border-left: 3px solid var(--amp);
+            border-radius: 7px;
+            color: #4b5c70;
+            background: #f0f8fc;
+            font-size: 10px;
+            line-height: 1.55;
+        }
+
+        .updates-panel {
+            margin-top: 13px;
+            padding: 17px;
+        }
+
+        .mini-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .update-list {
+            margin-top: 12px;
+        }
+
+        .update-row {
+            display: grid;
+            grid-template-columns: 8px 1fr;
+            gap: 9px;
+            padding: 10px 0;
+            border-top: 1px solid #edf1f4;
+        }
+
+        .update-row:first-child {
+            border-top: 0;
+            padding-top: 0;
+        }
+
+        .update-dot {
+            width: 7px;
+            height: 7px;
+            margin-top: 4px;
+            border-radius: 50%;
+            background: var(--amp);
+        }
+
+        .update-dot.orange {
+            background: #e09149;
+        }
+
+        .update-dot.green {
+            background: #31a57c;
+        }
+
+        .update-title {
+            color: #2a3b4f;
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .update-meta {
+            margin-top: 3px;
+            color: #8a98a7;
+            font-size: 8px;
+        }
+
+        .doc-preview-panel {
+            margin-top: 23px;
+        }
+
+        .doc-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .doc-preview {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 14px;
+            text-align: left;
+            background: #ffffff;
+            transition: 150ms ease;
+        }
+
+        .doc-preview:hover {
+            border-color: #acd3e6;
+            box-shadow: var(--shadow-small);
+        }
+
+        .doc-type {
+            color: var(--amp);
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .doc-title {
+            margin-top: 8px;
+            color: var(--ink);
+            font-size: 11px;
+            font-weight: 750;
+            line-height: 1.4;
+        }
+
+        .doc-date {
+            margin-top: 10px;
+            color: #8996a5;
+            font-size: 9px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 21px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            color: var(--ink);
+            font-size: 29px;
+            letter-spacing: -0.04em;
+        }
+
+        .page-header p {
+            max-width: 720px;
+            margin: 7px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        .page-badge {
+            display: inline-flex;
+            margin-bottom: 8px;
+            padding: 5px 8px;
+            border-radius: 999px;
+            color: var(--amp-dark);
+            background: var(--amp-soft);
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            margin-bottom: 17px;
+            padding: 13px 15px;
+            border: 1px solid #f0d5ae;
+            border-radius: 12px;
+            background: #fff8ec;
+        }
+
+        .notice-icon {
+            width: 24px;
+            height: 24px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 24px;
+            border-radius: 7px;
+            color: #a25f1e;
+            background: #fce7c9;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .notice-title {
+            color: #74461b;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .notice-copy {
+            margin-top: 3px;
+            color: #8b633c;
+            font-size: 9px;
+            line-height: 1.45;
+        }
+
+        .network-map {
+            position: relative;
+            min-height: 170px;
+            overflow: hidden;
+            margin-bottom: 17px;
+            padding: 24px;
+            border-radius: 18px;
+            color: #ffffff;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(78, 190, 231, 0.25), transparent 22%),
+                linear-gradient(125deg, #10243a, #103e5d);
+        }
+
+        .network-map::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.16;
+            background-image:
+                linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .network-core {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 2;
+            width: 115px;
+            height: 62px;
+            display: grid;
+            place-items: center;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            background: rgba(8, 116, 173, 0.76);
+            box-shadow: 0 0 0 9px rgba(8, 116, 173, 0.13);
+            text-align: center;
+        }
+
+        .network-core-title {
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .network-core-copy {
+            margin-top: 3px;
+            color: #cfe8f4;
+            font-size: 8px;
+        }
+
+        .network-node {
+            position: absolute;
+            z-index: 2;
+            min-width: 84px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 10px;
+            padding: 9px;
+            background: rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
+
+        .network-node strong {
+            display: block;
+            font-size: 9px;
+        }
+
+        .network-node span {
+            display: block;
+            margin-top: 2px;
+            color: #9fc7da;
+            font-size: 7px;
+        }
+
+        .node-north { left: 22%; top: 18px; }
+        .node-south { left: 25%; bottom: 18px; }
+        .node-west { left: 6%; top: 68px; }
+        .node-east { right: 7%; top: 68px; }
+        .node-dach { right: 24%; top: 18px; }
+
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .hub-card {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 15px;
+            background: #ffffff;
+            box-shadow: 0 5px 16px rgba(24, 47, 71, 0.04);
+        }
+
+        .hub-band {
+            height: 5px;
+            background: var(--amp);
+        }
+
+        .hub-band.green { background: #24906a; }
+        .hub-band.orange { background: #d68137; }
+        .hub-band.purple { background: #755fc0; }
+        .hub-band.slate { background: #74859a; }
+
+        .hub-body {
+            padding: 15px 14px;
+        }
+
+        .hub-title {
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .hub-territory {
+            min-height: 31px;
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 9px;
+            line-height: 1.45;
+        }
+
+        .hub-divider {
+            height: 1px;
+            margin: 12px 0;
+            background: #edf1f4;
+        }
+
+        .hub-field {
+            margin-top: 8px;
+        }
+
+        .hub-field-label {
+            color: #8b98a8;
+            font-size: 7px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hub-field-value {
+            margin-top: 3px;
+            color: #34465a;
+            font-size: 9px;
+            font-weight: 650;
+            line-height: 1.4;
+        }
+
+        .status-pill,
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            font-weight: 750;
+        }
+
+        .status-pill {
+            margin-top: 12px;
+            padding: 5px 7px;
+            color: #84601e;
+            background: #fff2d9;
+            font-size: 7px;
+        }
+
+        .status-pill.confirmed {
+            color: var(--green);
+            background: var(--green-soft);
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .filter-chip {
+            border: 1px solid #dce4eb;
+            border-radius: 999px;
+            padding: 7px 11px;
+            color: #627287;
+            background: #ffffff;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .filter-chip.active {
+            color: #ffffff;
+            background: var(--amp);
+            border-color: var(--amp);
+        }
+
+        .small-search {
+            position: relative;
+            width: 265px;
+        }
+
+        .small-search input {
+            width: 100%;
+            height: 35px;
+            border: 1px solid #dce4eb;
+            border-radius: 9px;
+            outline: 0;
+            padding: 0 11px 0 32px;
+            background: #ffffff;
+            font-size: 9px;
+        }
+
+        .small-search span {
+            position: absolute;
+            left: 11px;
+            top: 9px;
+            color: #8996a5;
+            font-size: 12px;
+        }
+
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .brand-card {
+            position: relative;
+            min-height: 216px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 17px;
+            background: #ffffff;
+            transition: 160ms ease;
+            box-shadow: 0 5px 16px rgba(24, 47, 71, 0.035);
+            cursor: pointer;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-2px);
+            border-color: #aed3e5;
+            box-shadow: var(--shadow-small);
+        }
+
+        .brand-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .brand-monogram {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: #ffffff;
+            background: linear-gradient(145deg, #0874ad, #075b89);
+            font-size: 11px;
+            font-weight: 850;
+        }
+
+        .brand-monogram.red {
+            background: linear-gradient(145deg, #d32e41, #9d1727);
+        }
+
+        .brand-monogram.yellow {
+            color: #333022;
+            background: linear-gradient(145deg, #ffe367, #f1b72f);
+        }
+
+        .brand-monogram.green {
+            background: linear-gradient(145deg, #50a86a, #277744);
+        }
+
+        .brand-monogram.purple {
+            background: linear-gradient(145deg, #8068c7, #594197);
+        }
+
+        .bookmark {
+            width: 29px;
+            height: 29px;
+            border: 1px solid #e0e7ed;
+            border-radius: 8px;
+            color: #8895a4;
+            background: #ffffff;
+            font-size: 13px;
+        }
+
+        .bookmark.saved {
+            color: #d98a28;
+            background: #fff8e8;
+            border-color: #f1d8ad;
+        }
+
+        .brand-kicker {
+            margin-top: 14px;
+            color: var(--amp);
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .brand-title {
+            margin-top: 5px;
+            color: var(--ink);
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .brand-summary {
+            min-height: 40px;
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            padding: 5px 7px;
+            color: #56697e;
+            background: #f0f4f7;
+            font-size: 7px;
+        }
+
+        .brand-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 11px;
+            border-top: 1px solid #edf1f4;
+            color: #7c8998;
+            font-size: 8px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .role-card {
+            position: relative;
+            min-height: 198px;
+            overflow: hidden;
+            padding: 22px;
+            border-radius: 17px;
+            color: #ffffff;
+            background: linear-gradient(140deg, #13283f, #174a68);
+        }
+
+        .role-card.agency {
+            background: linear-gradient(140deg, #086c9f, #0b8abf);
+        }
+
+        .role-number {
+            position: absolute;
+            right: 14px;
+            bottom: -18px;
+            color: rgba(255, 255, 255, 0.07);
+            font-size: 120px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .role-kicker {
+            color: #a9dced;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .role-title {
+            margin-top: 8px;
+            font-size: 22px;
+            font-weight: 850;
+            letter-spacing: -0.03em;
+        }
+
+        .role-copy {
+            max-width: 520px;
+            margin-top: 10px;
+            color: #c8dae7;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .role-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 16px;
+        }
+
+        .role-actions span {
+            padding: 6px 8px;
+            border: 1px solid rgba(255,255,255,.13);
+            border-radius: 999px;
+            background: rgba(255,255,255,.07);
+            font-size: 8px;
+            font-weight: 750;
+        }
+
+        .bos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 11px;
+            margin-top: 15px;
+        }
+
+        .bos-card {
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 15px;
+            background: #ffffff;
+        }
+
+        .bos-index {
+            color: var(--amp);
+            font-size: 9px;
+            font-weight: 850;
+        }
+
+        .bos-title {
+            margin-top: 7px;
+            color: var(--ink);
+            font-size: 17px;
+            font-weight: 850;
+        }
+
+        .bos-copy {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 9px;
+            line-height: 1.55;
+        }
+
+        .bos-list {
+            display: grid;
+            gap: 7px;
+            margin-top: 13px;
+        }
+
+        .bos-list div {
+            position: relative;
+            padding-left: 14px;
+            color: #405268;
+            font-size: 9px;
+            line-height: 1.4;
+        }
+
+        .bos-list div::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--amp);
+        }
+
+        .ecosystem-panel {
+            margin-top: 16px;
+            padding: 19px;
+        }
+
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .ecosystem-card {
+            min-height: 92px;
+            padding: 11px;
+            border: 1px solid #e3e9ee;
+            border-radius: 11px;
+            background: #f8fafb;
+        }
+
+        .ecosystem-title {
+            color: var(--ink);
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .ecosystem-copy {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 7px;
+            line-height: 1.45;
+        }
+
+        .router-layout {
+            display: grid;
+            grid-template-columns: 275px minmax(0, 1fr);
+            gap: 15px;
+        }
+
+        .router-selector {
+            padding: 16px;
+            align-self: start;
+        }
+
+        .selector-label {
+            color: #8795a5;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+
+        .route-options {
+            display: grid;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .route-option {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 7px;
+            border: 1px solid #e0e7ed;
+            border-radius: 9px;
+            padding: 10px;
+            color: #4d5f73;
+            background: #ffffff;
+            text-align: left;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .route-option.active {
+            color: var(--amp-dark);
+            border-color: #a8d2e5;
+            background: #eef8fc;
+        }
+
+        .route-option span:last-child {
+            color: #98a4b2;
+        }
+
+        .router-note {
+            margin-top: 14px;
+            padding: 11px;
+            border-radius: 9px;
+            color: #6c5b3e;
+            background: #fff6e8;
+            font-size: 8px;
+            line-height: 1.5;
+        }
+
+        .route-result {
+            padding: 19px;
+        }
+
+        .route-result-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .route-result-kicker {
+            color: var(--amp);
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+
+        .route-result-title {
+            margin-top: 5px;
+            color: var(--ink);
+            font-size: 18px;
+            font-weight: 850;
+        }
+
+        .route-result-copy {
+            max-width: 710px;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 9px;
+            line-height: 1.55;
+        }
+
+        .route-owner {
+            flex: 0 0 auto;
+            padding: 8px 10px;
+            border-radius: 9px;
+            color: var(--green);
+            background: var(--green-soft);
+            font-size: 8px;
+            font-weight: 800;
+        }
+
+        .stage-line {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 7px;
+            margin-top: 20px;
+        }
+
+        .stage-line::before {
+            content: "";
+            position: absolute;
+            left: 6%;
+            right: 6%;
+            top: 20px;
+            height: 2px;
+            background: #dce7ed;
+        }
+
+        .stage-card {
+            position: relative;
+            z-index: 2;
+            min-height: 172px;
+            padding: 11px;
+            border: 1px solid #dfe7ed;
+            border-radius: 12px;
+            background: #ffffff;
+        }
+
+        .stage-number {
+            width: 25px;
+            height: 25px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            color: #ffffff;
+            background: var(--amp);
+            font-size: 8px;
+            font-weight: 850;
+        }
+
+        .stage-title {
+            margin-top: 10px;
+            color: var(--ink);
+            font-size: 10px;
+            font-weight: 850;
+        }
+
+        .stage-owner {
+            margin-top: 8px;
+            color: var(--amp-dark);
+            font-size: 8px;
+            font-weight: 750;
+            line-height: 1.4;
+        }
+
+        .stage-activity {
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 7px;
+            line-height: 1.45;
+        }
+
+        .stage-tool {
+            margin-top: 9px;
+            padding-top: 8px;
+            border-top: 1px solid #edf1f4;
+            color: #7b8999;
+            font-size: 7px;
+            font-weight: 650;
+            line-height: 1.4;
+        }
+
+        .gate-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 13px;
+        }
+
+        .gate-card {
+            padding: 11px;
+            border-radius: 10px;
+            color: #4c5d70;
+            background: #f4f7f9;
+            font-size: 8px;
+            line-height: 1.45;
+        }
+
+        .gate-card strong {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--ink);
+            font-size: 8px;
+        }
+
+        .tools-intro {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(300px, .6fr);
+            gap: 14px;
+            margin-bottom: 15px;
+        }
+
+        .principle-banner {
+            position: relative;
+            overflow: hidden;
+            min-height: 154px;
+            padding: 23px;
+            border-radius: 17px;
+            color: #ffffff;
+            background: linear-gradient(130deg, #13283e, #076f9f);
+        }
+
+        .principle-banner::after {
+            content: "TOOLS FIRST";
+            position: absolute;
+            right: -15px;
+            bottom: -9px;
+            color: rgba(255,255,255,.055);
+            font-size: 57px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .principle-banner-title {
+            position: relative;
+            z-index: 1;
+            font-size: 21px;
+            font-weight: 850;
+            letter-spacing: -0.03em;
+        }
+
+        .principle-banner-copy {
+            position: relative;
+            z-index: 1;
+            max-width: 660px;
+            margin-top: 9px;
+            color: #cae0ea;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .open-card {
+            padding: 18px;
+        }
+
+        .open-label {
+            color: var(--amp);
+            font-size: 8px;
+            font-weight: 850;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .open-title {
+            margin-top: 7px;
+            color: var(--ink);
+            font-size: 15px;
+            font-weight: 850;
+        }
+
+        .open-copy {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 9px;
+            line-height: 1.55;
+        }
+
+        .open-rule {
+            margin-top: 11px;
+            padding: 8px;
+            border-radius: 8px;
+            color: #39576b;
+            background: #edf7fb;
+            font-size: 8px;
+            font-weight: 700;
+        }
+
+        .tool-stage {
+            display: grid;
+            grid-template-columns: 140px minmax(0, 1fr);
+            gap: 11px;
+            align-items: start;
+            margin-bottom: 9px;
+        }
+
+        .tool-stage-label {
+            padding: 12px 10px;
+            border-radius: 11px;
+            color: #43566a;
+            background: #eaf0f4;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .tool-cards {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 7px;
+        }
+
+        .tool-card {
+            min-height: 79px;
+            border: 1px solid #dfe7ed;
+            border-radius: 11px;
+            padding: 11px;
+            color: var(--ink);
+            background: #ffffff;
+            text-align: left;
+            transition: 150ms ease;
+        }
+
+        .tool-card:hover {
+            border-color: #a9d1e3;
+            background: #f8fcfe;
+        }
+
+        .tool-name {
+            font-size: 9px;
+            font-weight: 850;
+        }
+
+        .tool-purpose {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 7px;
+            line-height: 1.4;
+        }
+
+        .guardrail-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .guardrail-card {
+            min-height: 110px;
+            padding: 13px;
+            border: 1px solid #eadde0;
+            border-radius: 12px;
+            background: #fffafb;
+        }
+
+        .guardrail-icon {
+            color: var(--red);
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .guardrail-title {
+            margin-top: 8px;
+            color: #51363b;
+            font-size: 9px;
+            font-weight: 850;
+        }
+
+        .guardrail-copy {
+            margin-top: 5px;
+            color: #83696e;
+            font-size: 7px;
+            line-height: 1.45;
+        }
+
+        .governance-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 14px;
+        }
+
+        .cadence-panel,
+        .gates-panel {
+            padding: 18px;
+        }
+
+        .cadence-list {
+            display: grid;
+            gap: 8px;
+            margin-top: 13px;
+        }
+
+        .cadence-row {
+            display: grid;
+            grid-template-columns: 65px 1fr;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            background: #f5f8fa;
+        }
+
+        .cadence-time {
+            color: var(--amp);
+            font-size: 8px;
+            font-weight: 850;
+            text-transform: uppercase;
+        }
+
+        .cadence-title {
+            color: var(--ink);
+            font-size: 9px;
+            font-weight: 750;
+        }
+
+        .cadence-copy {
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 7px;
+            line-height: 1.4;
+        }
+
+        .quality-gates {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 13px;
+        }
+
+        .quality-gate {
+            display: grid;
+            grid-template-columns: 26px 1fr;
+            gap: 9px;
+            padding: 10px;
+            border: 1px solid #e3e9ee;
+            border-radius: 10px;
+        }
+
+        .quality-gate-index {
+            width: 26px;
+            height: 26px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            color: #ffffff;
+            background: var(--amp);
+            font-size: 8px;
+            font-weight: 800;
+        }
+
+        .quality-gate-title {
+            color: var(--ink);
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .quality-gate-copy {
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 7px;
+            line-height: 1.4;
+        }
+
+        .raci-panel {
+            margin-top: 14px;
+            overflow: hidden;
+        }
+
+        .raci-head {
+            padding: 17px 18px 12px;
+        }
+
+        .raci-scroll {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8px;
+        }
+
+        th,
+        td {
+            padding: 10px 11px;
+            border-top: 1px solid #e7edf1;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th {
+            color: #6a798b;
+            background: #f7f9fb;
+            font-weight: 800;
+        }
+
+        th:first-child,
+        td:first-child {
+            width: 240px;
+            text-align: left;
+        }
+
+        td:first-child {
+            color: #33465a;
+            font-weight: 700;
+        }
+
+        .raci-marker {
+            width: 22px;
+            height: 22px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 7px;
+            font-size: 7px;
+            font-weight: 900;
+        }
+
+        .raci-a { color: #ffffff; background: var(--amp); }
+        .raci-r { color: var(--green); background: var(--green-soft); }
+        .raci-c { color: var(--orange); background: var(--orange-soft); }
+        .raci-i { color: #748397; background: #edf1f4; }
+
+        .library-layout {
+            display: grid;
+            grid-template-columns: 235px minmax(0, 1fr);
+            gap: 14px;
+        }
+
+        .library-sidebar {
+            padding: 17px;
+            align-self: start;
+        }
+
+        .library-count {
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        .library-filters {
+            display: grid;
+            gap: 5px;
+            margin-top: 14px;
+        }
+
+        .library-filter {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            border: 0;
+            border-radius: 8px;
+            padding: 9px;
+            color: #56677b;
+            background: transparent;
+            text-align: left;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .library-filter.active,
+        .library-filter:hover {
+            color: var(--amp-dark);
+            background: #edf7fb;
+        }
+
+        .library-filter span:last-child {
+            color: #95a1af;
+        }
+
+        .library-main {
+            padding: 17px;
+        }
+
+        .library-search {
+            position: relative;
+            margin-bottom: 11px;
+        }
+
+        .library-search input {
+            width: 100%;
+            height: 39px;
+            border: 1px solid #dce4eb;
+            border-radius: 10px;
+            outline: 0;
+            padding: 0 12px 0 36px;
+            background: #f8fafb;
+            font-size: 9px;
+        }
+
+        .library-search span {
+            position: absolute;
+            left: 13px;
+            top: 11px;
+            color: #8996a4;
+        }
+
+        .document-list {
+            display: grid;
+        }
+
+        .doc-row {
+            width: 100%;
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) 120px 105px 34px;
+            gap: 14px;
+            align-items: center;
+            border: 0;
+            border-top: 1px solid #e8edf1;
+            padding: 13px 5px;
+            color: inherit;
+            background: #ffffff;
+            text-align: left;
+        }
+
+        .doc-row:first-child {
+            border-top: 0;
+        }
+
+        .doc-row:hover {
+            background: #f8fbfc;
+        }
+
+        .doc-row-title {
+            color: var(--ink);
+            font-size: 10px;
+            font-weight: 750;
+        }
+
+        .doc-row-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 5px;
+        }
+
+        .doc-row-meta {
+            color: #7e8c9c;
+            font-size: 8px;
+            line-height: 1.4;
+        }
+
+        .doc-open {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            color: var(--amp);
+            background: var(--amp-soft);
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: grid;
+            place-items: start center;
+            padding-top: 76px;
+            background: rgba(8, 20, 34, 0.62);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal {
+            width: min(660px, calc(100vw - 42px));
+            max-height: calc(100vh - 110px);
+            overflow: auto;
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: 18px;
+            background: #ffffff;
+            box-shadow: 0 28px 80px rgba(0,0,0,.25);
+        }
+
+        .modal.wide {
+            width: min(820px, calc(100vw - 42px));
+        }
+
+        .modal-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 20px 21px 15px;
+            border-bottom: 1px solid #e8edf1;
+        }
+
+        .modal-head h2 {
+            margin: 0;
+            color: var(--ink);
+            font-size: 20px;
+            letter-spacing: -0.03em;
+        }
+
+        .modal-head p {
+            margin: 5px 0 0;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.45;
+        }
+
+        .modal-close {
+            width: 31px;
+            height: 31px;
+            flex: 0 0 31px;
+            border: 1px solid #dfe6ec;
+            border-radius: 8px;
+            color: #718094;
+            background: #ffffff;
+        }
+
+        .modal-body {
+            padding: 20px 21px;
+        }
+
+        .palette-input {
+            position: relative;
+        }
+
+        .palette-input input {
+            width: 100%;
+            height: 44px;
+            border: 1px solid #d8e2e9;
+            border-radius: 11px;
+            outline: none;
+            padding: 0 13px 0 40px;
+            background: #f7f9fb;
+        }
+
+        .palette-input span {
+            position: absolute;
+            left: 14px;
+            top: 12px;
+            color: #8190a0;
+        }
+
+        .search-results {
+            display: grid;
+            gap: 7px;
+            margin-top: 14px;
+        }
+
+        .search-result {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 35px 1fr auto;
+            gap: 10px;
+            align-items: center;
+            border: 1px solid #e0e7ed;
+            border-radius: 10px;
+            padding: 10px;
+            color: inherit;
+            background: #ffffff;
+            text-align: left;
+        }
+
+        .search-result:hover {
+            border-color: #afd3e4;
+            background: #f8fcfe;
+        }
+
+        .result-icon {
+            width: 35px;
+            height: 35px;
+            display: grid;
+            place-items: center;
+            border-radius: 9px;
+            color: var(--amp);
+            background: var(--amp-soft);
+            font-size: 12px;
+            font-weight: 850;
+        }
+
+        .result-title {
+            color: var(--ink);
+            font-size: 10px;
+            font-weight: 750;
+        }
+
+        .result-meta {
+            margin-top: 3px;
+            color: #83909f;
+            font-size: 8px;
+        }
+
+        .result-arrow {
+            color: #8b98a6;
+            font-size: 13px;
+        }
+
+        .empty-state {
+            padding: 25px;
+            border: 1px dashed #d8e2e9;
+            border-radius: 11px;
+            color: #7c8998;
+            background: #fafcfd;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .form-field {
+            display: grid;
+            gap: 6px;
+        }
+
+        .form-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-field label {
+            color: #526377;
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            width: 100%;
+            border: 1px solid #dce4eb;
+            border-radius: 9px;
+            outline: 0;
+            padding: 10px;
+            background: #f8fafb;
+            color: var(--ink);
+            font-size: 9px;
+        }
+
+        .form-field textarea {
+            min-height: 95px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 190px 1fr;
+            gap: 18px;
+        }
+
+        .detail-aside {
+            padding: 15px;
+            border-radius: 13px;
+            background: #f3f7f9;
+        }
+
+        .detail-brand-mark {
+            width: 54px;
+            height: 54px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            color: #ffffff;
+            background: linear-gradient(145deg, #0874ad, #075b89);
+            font-weight: 900;
+        }
+
+        .detail-brand-name {
+            margin-top: 12px;
+            color: var(--ink);
+            font-size: 14px;
+            font-weight: 850;
+        }
+
+        .detail-brand-meta {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 8px;
+            line-height: 1.5;
+        }
+
+        .detail-section {
+            margin-bottom: 14px;
+        }
+
+        .detail-label {
+            color: #8794a3;
+            font-size: 7px;
+            font-weight: 850;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            margin-top: 5px;
+            color: #34465a;
+            font-size: 9px;
+            line-height: 1.55;
+        }
+
+        .detail-callout {
+            padding: 11px;
+            border-left: 3px solid var(--orange);
+            border-radius: 8px;
+            color: #725333;
+            background: var(--orange-soft);
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        .toast {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 200;
+            min-width: 270px;
+            padding: 13px 15px;
+            border-radius: 11px;
+            color: #ffffff;
+            background: #12324a;
+            box-shadow: 0 16px 35px rgba(0,0,0,.2);
+            font-size: 10px;
+            font-weight: 700;
+            transform: translateY(16px);
+            opacity: 0;
+            pointer-events: none;
+            transition: 220ms ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1160px) {
+            .hub-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .ecosystem-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+
+            .stage-line {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .stage-line::before {
+                display: none;
+            }
+
+            .guardrail-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .tool-cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            .app-shell {
+                grid-template-columns: 78px minmax(0, 1fr);
+            }
+
+            .sidebar {
+                width: 78px;
+                padding-inline: 10px;
+            }
+
+            .brand-lockup {
+                padding-inline: 0;
+                justify-content: center;
+            }
+
+            .brand-lockup > div:last-child,
+            .workspace-badge span:last-child,
+            .nav-label,
+            .nav-item > span:last-child,
+            .sidebar-support,
+            .user-chip > div:last-child {
+                display: none;
+            }
+
+            .workspace-badge {
+                justify-content: center;
+            }
+
+            .nav-item {
+                justify-content: center;
+                padding: 10px;
+            }
+
+            .main-area {
+                grid-column: 2;
+            }
+
+            .home-grid,
+            .governance-grid,
+            .tools-intro,
+            .router-layout,
+            .library-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-grid,
+            .doc-preview-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .principle-strip,
+            .bos-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .topbar {
+                padding-inline: 18px;
+            }
+
+            .breadcrumb {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand-lockup">
+                <div class="logo-frame">
+                    <img id="amp-logo-image" data-src="Use the exact user-supplied AMP_Blue.png artwork as a clean transparent brand mark. Preserve the distinctive blue handwritten AMP lettering, remove any black background, retain the original proportions, and place it on a transparent canvas with no added words, decoration, border, shadow, or visual alteration. Polished brand identity asset style." alt="AMP logo" width="57" height="38">
+                </div>
+                <div>
+                    <div class="brand-name">Studio Atelier</div>
+                    <div class="brand-caption">Knowledge &amp; operations hub</div>
+                </div>
+            </div>
+
+            <div class="workspace-badge">
+                <span class="workspace-dot"></span>
+                <span>Zone Europe workspace</span>
+            </div>
+
+            <div class="nav-label">Workspace</div>
+            <nav class="nav-list" aria-label="Primary navigation">
+                <button class="nav-item active" data-view="home">
+                    <span class="nav-icon">⌂</span>
+                    <span>Atelier Home</span>
+                </button>
+                <button class="nav-item" data-view="studios">
+                    <span class="nav-icon">◎</span>
+                    <span>Studios &amp; Markets</span>
+                </button>
+                <button class="nav-item" data-view="brands">
+                    <span class="nav-icon">◆</span>
+                    <span>Brand Library</span>
+                </button>
+                <button class="nav-item" data-view="operating">
+                    <span class="nav-icon">↔</span>
+                    <span>Operating Model</span>
+                </button>
+                <button class="nav-item" data-view="workflows">
+                    <span class="nav-icon">⌁</span>
+                    <span>Workflow Router</span>
+                </button>
+                <button class="nav-item" data-view="tools">
+                    <span class="nav-icon">✦</span>
+                    <span>Tools &amp; AI</span>
+                </button>
+                <button class="nav-item" data-view="governance">
+                    <span class="nav-icon">✓</span>
+                    <span>Governance</span>
+                </button>
+                <button class="nav-item" data-view="library">
+                    <span class="nav-icon">▤</span>
+                    <span>Knowledge Library</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-spacer"></div>
+
+            <div class="sidebar-support">
+                <div class="support-label">Need operational help?</div>
+                <div class="support-copy">Ask Atelier to find an owner, workflow, tool or approved source.</div>
+                <button class="support-button" id="open-support-button">Ask Atelier</button>
+            </div>
+
+            <div class="user-chip">
+                <div class="avatar">ZE</div>
+                <div>
+                    <div class="user-name">Zone Europe Team</div>
+                    <div class="user-role">Private workspace</div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <div class="breadcrumb">
+                    <div class="breadcrumb-kicker">AMP Studio Atelier</div>
+                    <div class="breadcrumb-current" id="breadcrumb-current">Atelier Home</div>
+                </div>
+
+                <div class="top-search">
+                    <span class="search-symbol">⌕</span>
+                    <input id="global-search" type="search" placeholder="Search brands, workflows, tools and playbooks">
+                    <span class="shortcut">⌘ K</span>
+                </div>
+
+                <div class="top-actions">
+                    <button class="icon-button" id="notification-button" aria-label="Notifications">◌</button>
+                    <button class="primary-button" id="new-brief-button">＋ New brief</button>
+                </div>
+            </header>
+
+            <div class="content">
+                <section class="view active" id="view-home">
+                    <div class="hero">
+                        <div class="hero-watermark">Amp</div>
+                        <div class="hero-content">
+                            <div class="eyebrow">● Private knowledge workspace · Zone Europe</div>
+                            <h1 id="home-title">One connected home for every brand, studio and workflow.</h1>
+                            <p id="home-subtitle">AMP Studio Atelier turns operating knowledge into practical action—helping teams find the right guidance, route work correctly and deliver with confidence.</p>
+                            <div class="hero-actions">
+                                <button class="hero-primary" data-go="workflows">Route a brief →</button>
+                                <button class="hero-secondary" data-go="library">Explore the knowledge base</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="principle-strip">
+                        <div class="principle-card">
+                            <div class="principle-top"><span>01</span><span>Leadership</span></div>
+                            <div class="principle-title">Nestlé led</div>
+                            <div class="principle-copy">Strategy, priorities, governance and final approvals remain with Nestlé.</div>
+                        </div>
+                        <div class="principle-card">
+                            <div class="principle-top"><span>02</span><span>Network</span></div>
+                            <div class="principle-title">One connected system</div>
+                            <div class="principle-copy">Hubs, satellites and specialist partners operate as one European network.</div>
+                        </div>
+                        <div class="principle-card">
+                            <div class="principle-top"><span>03</span><span>Technology</span></div>
+                            <div class="principle-title">Nestlé Tools First</div>
+                            <div class="principle-copy">Approved platforms are used by default; agency tools only fill proven gaps.</div>
+                        </div>
+                        <div class="principle-card">
+                            <div class="principle-top"><span>04</span><span>Delivery</span></div>
+                            <div class="principle-title">Build · Operate · Scale</div>
+                            <div class="principle-copy">Every brief moves from a clear plan to governed delivery and scalable reuse.</div>
+                        </div>
+                    </div>
+
+                    <div class="home-grid">
+                        <div>
+                            <div class="section-heading">
+                                <div>
+                                    <h2 id="home-collections-title">Explore the Atelier</h2>
+                                    <p id="home-collections-copy">Curated knowledge organised around the decisions teams need to make.</p>
+                                </div>
+                                <button class="text-button" data-go="library">View all knowledge →</button>
+                            </div>
+
+                            <div class="collection-grid">
+                                <button class="collection-card" data-go="operating">
+                                    <div class="collection-icon">OM</div>
+                                    <div class="collection-title">Studio operating model</div>
+                                    <div class="collection-copy">Roles, team structures, decision rights, governance and partner boundaries.</div>
+                                    <div class="collection-meta"><span>Core collection</span><span>Open →</span></div>
+                                </button>
+
+                                <button class="collection-card" data-go="brands">
+                                    <div class="collection-icon orange">BI</div>
+                                    <div class="collection-title">Brand &amp; category intelligence</div>
+                                    <div class="collection-copy">Brand platforms, toolkits, audiences, guardrails and market requirements.</div>
+                                    <div class="collection-meta"><span>Brand library</span><span>Open →</span></div>
+                                </button>
+
+                                <button class="collection-card" data-go="workflows">
+                                    <div class="collection-icon purple">WR</div>
+                                    <div class="collection-title">Workflow &amp; routing</div>
+                                    <div class="collection-copy">Select the right pathway, owner, capability, handoff and approval gate.</div>
+                                    <div class="collection-meta"><span>Interactive</span><span>Open →</span></div>
+                                </button>
+
+                                <button class="collection-card" data-go="tools">
+                                    <div class="collection-icon green">AI</div>
+                                    <div class="collection-title">Tools, data &amp; AI</div>
+                                    <div class="collection-copy">Approved technology, use cases, workflow integration and responsible AI controls.</div>
+                                    <div class="collection-meta"><span>Tools First</span><span>Open →</span></div>
+                                </button>
+
+                                <button class="collection-card" data-go="governance">
+                                    <div class="collection-icon">QC</div>
+                                    <div class="collection-title">Quality &amp; governance</div>
+                                    <div class="collection-copy">RACI, approvals, creative quality, rights, Content Hub and escalation.</div>
+                                    <div class="collection-meta"><span>Mandatory gates</span><span>Open →</span></div>
+                                </button>
+
+                                <button class="collection-card" data-go="library">
+                                    <div class="collection-icon orange">EV</div>
+                                    <div class="collection-title">Commercial &amp; evidence library</div>
+                                    <div class="collection-copy">Rate cards, business cases, implementation evidence and relevant case studies.</div>
+                                    <div class="collection-meta"><span>Controlled access</span><span>Open →</span></div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="panel assistant-panel">
+                                <div class="assistant-head">
+                                    <div class="assistant-name">
+                                        <span class="assistant-spark">✦</span>
+                                        <span>Ask Atelier</span>
+                                    </div>
+                                    <div class="assistant-intro">Get guidance grounded in the approved studio knowledge base.</div>
+                                </div>
+                                <div class="assistant-body">
+                                    <div class="assistant-input">
+                                        <input id="assistant-query" type="text" placeholder="e.g. Who owns creator content?">
+                                        <button id="assistant-send-button" aria-label="Send question">→</button>
+                                    </div>
+                                    <div class="prompt-chips">
+                                        <button class="prompt-chip" data-prompt="How does prime amplification route?">Prime amplification</button>
+                                        <button class="prompt-chip" data-prompt="Who owns creator content?">Creator ownership</button>
+                                        <button class="prompt-chip" data-prompt="Which AI tools are approved?">Approved AI tools</button>
+                                    </div>
+                                    <div class="assistant-answer" id="assistant-answer" hidden=""></div>
+                                </div>
+                            </div>
+
+                            <div class="panel updates-panel">
+                                <div class="mini-heading">
+                                    <span>Important now</span>
+                                    <span>•••</span>
+                                </div>
+                                <div class="update-list">
+                                    <div class="update-row">
+                                        <span class="update-dot"></span>
+                                        <div>
+                                            <div class="update-title">Use Brand Amplification Studio terminology in Phase 2 materials.</div>
+                                            <div class="update-meta">Terminology update · 22 Jul 2026</div>
+                                        </div>
+                                    </div>
+                                    <div class="update-row">
+                                        <span class="update-dot orange"></span>
+                                        <div>
+                                            <div class="update-title">The five-hub scenario is provisional and subject to implementation audits.</div>
+                                            <div class="update-meta">Operating model · Active caveat</div>
+                                        </div>
+                                    </div>
+                                    <div class="update-row">
+                                        <span class="update-dot green"></span>
+                                        <div>
+                                            <div class="update-title">CreativeX pre-flight and Content Hub delivery are embedded workflow gates.</div>
+                                            <div class="update-meta">Quality &amp; delivery · Mandatory</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="doc-preview-panel">
+                        <div class="section-heading">
+                            <div>
+                                <h2 id="recent-documents-title">Recently opened</h2>
+                                <p id="recent-documents-copy">Continue from the most relevant current sources.</p>
+                            </div>
+                            <button class="text-button" data-go="library">Open library →</button>
+                        </div>
+                        <div class="doc-preview-grid">
+                            <button class="doc-preview" data-doc="phase2">
+                                <div class="doc-type">Client brief</div>
+                                <div class="doc-title">Brand Amplification Studios — Phase 2 RFP Brief</div>
+                                <div class="doc-date">22 July 2026 · Current authority</div>
+                            </button>
+                            <button class="doc-preview" data-doc="unforgettable">
+                                <div class="doc-type">Global process</div>
+                                <div class="doc-title">Unforgettable Communication Process</div>
+                                <div class="doc-date">February 2026 · Active process</div>
+                            </button>
+                            <button class="doc-preview" data-doc="production">
+                                <div class="doc-type">Production playbook</div>
+                                <div class="doc-title">Original Content Production Playbook</div>
+                                <div class="doc-date">October 2025 · Production guidance</div>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-studios">
+                    <div class="page-header">
+                        <div>
+                            <div class="page-badge">Network directory</div>
+                            <h1 id="studios-title">One network. Five provisional hubs.</h1>
+                            <p id="studios-subtitle">A single European operating system combines shared standards and scaled capabilities with local market knowledge, cultural relevance and activation support.</p>
+                        </div>
+                        <button class="primary-button" data-go="operating">View operating model</button>
+                    </div>
+
+                    <div class="notice">
+                        <div class="notice-icon">!</div>
+                        <div>
+                            <div class="notice-title">Working scenario—not a final footprint.</div>
+                            <div class="notice-copy">Hub configuration, capabilities, locations and staffing remain subject to market, central-brand and NBS content audits during implementation.</div>
+                        </div>
+                    </div>
+
+                    <div class="network-map">
+                        <div class="network-core">
+                            <div>
+                                <div class="network-core-title">AMP Network</div>
+                                <div class="network-core-copy">Shared governance &amp; knowledge</div>
+                            </div>
+                        </div>
+                        <div class="network-node node-north"><strong>North</strong><span>UK&amp;I · Nordics</span></div>
+                        <div class="network-node node-south"><strong>South</strong><span>Iberia · Italy</span></div>
+                        <div class="network-node node-west"><strong>West</strong><span>France · Benelux</span></div>
+                        <div class="network-node node-east"><strong>East</strong><span>CEE · SEE · Türkiye</span></div>
+                        <div class="network-node node-dach"><strong>DACH</strong><span>DE · AT · CH</span></div>
+                    </div>
+
+                    <div class="hub-grid">
+                        <article class="hub-card">
+                            <div class="hub-band"></div>
+                            <div class="hub-body">
+                                <div class="hub-title">North</div>
+                                <div class="hub-territory">United Kingdom, Ireland and Nordic markets</div>
+                                <div class="hub-divider"></div>
+                                <div class="hub-field">
+                                    <div class="hub-field-label">Central focus</div>
+                                    <div class="hub-field-value">Confectionery · KitKat</div>
+                                </div>
+                                <div class="hub-field">
+                                    <div class="hub-field-label">Capability signals</div>
+                                    <div class="hub-field-value">Strategy, creative, production, shopper and design</div>
+                                </div>
+                                <span class="status-pill">Implementation audit</span>
+                            </div>
+                        </article>
+
+                        <article class="hub-card">
+                            <div class="hub-band orange"></div>
+                            <div class="hub-body">
+                                <div class="hub-title">South</div>
+                                <div class="hub-territory">Spain, Portugal and Italy</div>
+                                <div class="hub-divider"></div>
+                                <div class="hub-field">
+                                    <div class="hub-field-label">Central focus</div>
+                                    <div class="hub-field-value">Nutrition · Nesquik</div>
+                                </div>
+                                <div class="hub-field">
+                                    <div class="hub-field-label">Capability signals</div>
+                                    <div class="hub-field-value">Content strategy, creative and production expertise</div>
+                                </div>
+                                <span class="status-pill">Implementation audit</span>
+                            </div>
+                        </article>
+
+                        <article class="hub-card">
+                            <div class="hub-band green"></div>
+                            <div class="hub-body">
+                                <div class="hub-title">West</div>
+                                <div class="hub-territory">France, Belgium, Netherlands and Luxembourg</div>
+                                <div class="hub-divider"></div>
+                                <div class="hub-field">
+                                    <div class="hub-field-label">Central focus</div>
+                                    <div class="hub-field-value">Coffee · Allocation TBC</div>
+                                </div>
+                                <div class="hub-field">
+                                    <div class="hub-field-label">Capability signals</div>
+                                    <div class="hub-field-value">Strategic leadership and creator expertise</div>
+                                </div>
+                                <span class="status-pill">Implementation audit</span>
+                            </div>
+                        </article>
+
+                        <article class="hub-card">
+                            <div class="hub-band purple"></div>
+                            <div class="hub-body">
+                                <div class="hub-title">East</div>
+                                <div class="hub-territory">CEE, SEE, Baltics, Hungary and Türkiye</div>
+                                <div class="hub-divider"></div>
+                                <div class="hub-field">
+                                    <div class="hub-field-label">Central focus</div>
+                                    <div class="hub-field-value">Food · Maggi</div>
+                                </div>
+                                <div class="hub-field">
+                                    <div class="hub-field-label">Capability signals</div>
+                                    <div class="hub-field-value">Scaled production, localisation and market expertise</div>
+                                </div>
+                                <span class="status-pill">Implementation audit</span>
+                            </div>
+                        </article>
+
+                        <article class="hub-card">
+                            <div class="hub-band slate"></div>
+                            <div class="hub-body">
+                                <div class="hub-title">DACH</div>
+                                <div class="hub-territory">Germany, Austria and Switzerland</div>
+                                <div class="hub-divider"></div>
+                                <div class="hub-field">
+                                    <div class="hub-field-label">Central focus</div>
+                                    <div class="hub-field-value">Category and anchor brand TBC</div>
+                                </div>
+                                <div class="hub-field">
+                                    <div class="hub-field-label">Capability signals</div>
+                                    <div class="hub-field-value">Creator teams and market content points of contact</div>
+                                </div>
+                                <span class="status-pill">Scope TBC</span>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="view" id="view-brands">
+                    <div class="page-header">
+                        <div>
+                            <div class="page-badge">Brand intelligence</div>
+                            <h1 id="brands-title">Every brand’s essentials, in one place.</h1>
+                            <p id="brands-subtitle">Access brand strategy, campaign platforms, audiences, toolkits, production requirements, regulatory guardrails and deployment guidance.</p>
+                        </div>
+                        <button class="primary-button" id="add-brand-button">＋ Add brand workspace</button>
+                    </div>
+
+                    <div class="toolbar">
+                        <div class="filter-group">
+                            <button class="filter-chip active brand-filter" data-filter="all">All brands</button>
+                            <button class="filter-chip brand-filter" data-filter="global">Global / central</button>
+                            <button class="filter-chip brand-filter" data-filter="local">Local brands</button>
+                            <button class="filter-chip brand-filter" data-filter="test">Pitch test cases</button>
+                        </div>
+                        <div class="small-search">
+                            <span>⌕</span>
+                            <input id="brand-search" type="search" placeholder="Search the brand library">
+                        </div>
+                    </div>
+
+                    <div class="brand-grid" id="brand-grid">
+                        <article class="brand-card" data-kind="global test" data-name="nescafe rtd coffee explorer" data-brand="nescafe">
+                            <div class="brand-card-top">
+                                <div class="brand-monogram">NRTD</div>
+                                <button class="bookmark" aria-label="Save NESCAFÉ RTD">☆</button>
+                            </div>
+                            <div class="brand-kicker">Global campaign amplification</div>
+                            <div class="brand-title">NESCAFÉ RTD</div>
+                            <div class="brand-summary">Operationalise and scale the existing “Cool. Smooth. Always Ready.” toolkit across markets, SKUs and channels.</div>
+                            <div class="tag-row">
+                                <span class="tag">Coffee</span>
+                                <span class="tag">Explorers</span>
+                                <span class="tag">Prime amplification</span>
+                            </div>
+                            <div class="brand-footer"><span>Network-led</span><span>Open profile →</span></div>
+                        </article>
+
+                        <article class="brand-card" data-kind="global" data-name="kitkat confectionery break better" data-brand="kitkat">
+                            <div class="brand-card-top">
+                                <div class="brand-monogram red">KK</div>
+                                <button class="bookmark" aria-label="Save KitKat">☆</button>
+                            </div>
+                            <div class="brand-kicker">Central brand · North</div>
+                            <div class="brand-title">KitKat</div>
+                            <div class="brand-summary">Amplify the established brand platform through multiplicity, creators, culture and locally relevant break moments.</div>
+                            <div class="tag-row">
+                                <span class="tag">Confectionery</span>
+                                <span class="tag">North Hub</span>
+                                <span class="tag">Global platform</span>
+                            </div>
+                            <div class="brand-footer"><span>Toolkit library</span><span>Open profile →</span></div>
+                        </article>
+
+                        <article class="brand-card" data-kind="global" data-name="maggi food culinary east" data-brand="maggi">
+                            <div class="brand-card-top">
+                                <div class="brand-monogram yellow">MG</div>
+                                <button class="bookmark" aria-label="Save Maggi">☆</button>
+                            </div>
+                            <div class="brand-kicker">Central brand · East</div>
+                            <div class="brand-title">Maggi</div>
+                            <div class="brand-summary">Culinary content system spanning campaign amplification, evergreen recipes, creators, shopper and real-time culture.</div>
+                            <div class="tag-row">
+                                <span class="tag">Food</span>
+                                <span class="tag">East Hub</span>
+                                <span class="tag">Culinary expertise</span>
+                            </div>
+                            <div class="brand-footer"><span>Brand workspace</span><span>Open profile →</span></div>
+                        </article>
+
+                        <article class="brand-card" data-kind="global" data-name="nesquik dairy beverage south" data-brand="nesquik">
+                            <div class="brand-card-top">
+                                <div class="brand-monogram yellow">NQ</div>
+                                <button class="bookmark" aria-label="Save Nesquik">☆</button>
+                            </div>
+                            <div class="brand-kicker">Central brand · South</div>
+                            <div class="brand-title">Nesquik</div>
+                            <div class="brand-summary">Shared content standards and brand knowledge supporting scalable, channel-ready communications across the South network.</div>
+                            <div class="tag-row">
+                                <span class="tag">Dairy &amp; beverages</span>
+                                <span class="tag">South Hub</span>
+                                <span class="tag">Central brand</span>
+                            </div>
+                            <div class="brand-footer"><span>Brand workspace</span><span>Open profile →</span></div>
+                        </article>
+
+                        <article class="brand-card" data-kind="local test" data-name="sma nutrition baby gut health uk ireland" data-brand="sma">
+                            <div class="brand-card-top">
+                                <div class="brand-monogram purple">SMA</div>
+                                <button class="bookmark" aria-label="Save SMA">☆</button>
+                            </div>
+                            <div class="brand-kicker">Local brand platform · UK&amp;I</div>
+                            <div class="brand-title">SMA Services</div>
+                            <div class="brand-summary">Develop a service-led campaign under “Wonder of Babies’ Tummy” and the Gut Health Promise within strict regulatory guardrails.</div>
+                            <div class="tag-row">
+                                <span class="tag">Nutrition</span>
+                                <span class="tag">Restricted category</span>
+                                <span class="tag">Local campaign</span>
+                            </div>
+                            <div class="brand-footer"><span>Regulatory profile</span><span>Open profile →</span></div>
+                        </article>
+
+                        <article class="brand-card" data-kind="global" data-name="dach anchor brand tbc germany austria switzerland" data-brand="dach">
+                            <div class="brand-card-top">
+                                <div class="brand-monogram green">D</div>
+                                <button class="bookmark" aria-label="Save DACH workspace">☆</button>
+                            </div>
+                            <div class="brand-kicker">Provisional workspace</div>
+                            <div class="brand-title">DACH Anchor TBC</div>
+                            <div class="brand-summary">Placeholder for the category and central-brand assignment to be confirmed through the implementation audit.</div>
+                            <div class="tag-row">
+                                <span class="tag">Germany</span>
+                                <span class="tag">Austria</span>
+                                <span class="tag">Switzerland</span>
+                            </div>
+                            <div class="brand-footer"><span>Awaiting decision</span><span>Open profile →</span></div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="view" id="view-operating">
+                    <div class="page-header">
+                        <div>
+                            <div class="page-badge">Operating model</div>
+                            <h1 id="operating-title">Nestlé leads. AMP makes the system work.</h1>
+                            <p id="operating-subtitle">The model protects Nestlé’s strategic control while giving the agency-operated studio clear accountability for implementation, orchestration and content delivery.</p>
+                        </div>
+                        <button class="primary-button" data-go="workflows">Test a workflow</button>
+                    </div>
+
+                    <div class="two-column">
+                        <div class="role-card">
+                            <div class="role-number">01</div>
+                            <div class="role-kicker">Nestlé Studio Teams</div>
+                            <div class="role-title">Lead · Govern · Orchestrate</div>
+                            <div class="role-copy">Lead content strategy, priorities, creative quality and day-to-day orchestration of the ecosystem. Nestlé owns planning, governance, approvals and final decisions.</div>
+                            <div class="role-actions">
+                                <span>Set priorities</span>
+                                <span>Approve work</span>
+                                <span>Govern quality</span>
+                                <span>Orchestrate partners</span>
+                            </div>
+                        </div>
+
+                        <div class="role-card agency">
+                            <div class="role-number">02</div>
+                            <div class="role-kicker">AMP / Agency-operated BAS</div>
+                            <div class="role-title">Build · Operate · Scale</div>
+                            <div class="role-copy">Implement and operate the studio network under Nestlé leadership, providing planning support, creative delivery, production, amplification, specialist capabilities and controlled scale.</div>
+                            <div class="role-actions">
+                                <span>Operationalise briefs</span>
+                                <span>Deliver content</span>
+                                <span>Manage workflow</span>
+                                <span>Scale capacity</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bos-grid">
+                        <div class="bos-card">
+                            <div class="bos-index">01 · BUILD</div>
+                            <div class="bos-title">Translate demand into a plan</div>
+                            <div class="bos-copy">Define what is needed, what already exists, who should deliver it and how success will be measured.</div>
+                            <div class="bos-list">
+                                <div>Classify content typology and brand governance</div>
+                                <div>Map markets, audiences, channels and SKUs</div>
+                                <div>Set asset architecture, owners and budget route</div>
+                                <div>Confirm media, shopper and creator requirements upstream</div>
+                            </div>
+                        </div>
+
+                        <div class="bos-card">
+                            <div class="bos-index">02 · OPERATE</div>
+                            <div class="bos-title">Run the complete workflow</div>
+                            <div class="bos-copy">Manage all handoffs and control points from intake through production, approval, delivery and activation.</div>
+                            <div class="bos-list">
+                                <div>Triage, brief and resource the work</div>
+                                <div>Manage creative development and production</div>
+                                <div>Run testing, legal and quality approvals</div>
+                                <div>Deliver approved, tagged and rights-cleared assets</div>
+                            </div>
+                        </div>
+
+                        <div class="bos-card">
+                            <div class="bos-index">03 · SCALE</div>
+                            <div class="bos-title">Expand without losing control</div>
+                            <div class="bos-copy">Use modular systems, shared capability and approved automation to serve markets efficiently.</div>
+                            <div class="bos-list">
+                                <div>Design masters for modularity and multiplicity</div>
+                                <div>Route industrial adaptation to NBS/IMS</div>
+                                <div>Flex specialists and production capacity</div>
+                                <div>Feed performance learning back into planning</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel ecosystem-panel">
+                        <div class="section-heading">
+                            <div>
+                                <h2 id="ecosystem-title">Clear boundaries across the content ecosystem</h2>
+                                <p id="ecosystem-copy">Each partner contributes a defined input, output and decision right.</p>
+                            </div>
+                        </div>
+                        <div class="ecosystem-grid">
+                            <div class="ecosystem-card">
+                                <div class="ecosystem-title">Creative AOR</div>
+                                <div class="ecosystem-copy">Prime strategy, campaign platform, big idea and core master assets.</div>
+                            </div>
+                            <div class="ecosystem-card">
+                                <div class="ecosystem-title">NBS / IMS</div>
+                                <div class="ecosystem-copy">Industrial adaptation, localisation, translation, CGIs, storage and rights support.</div>
+                            </div>
+                            <div class="ecosystem-card">
+                                <div class="ecosystem-title">Production</div>
+                                <div class="ecosystem-copy">Qualifying external production delivered through direct decoupling.</div>
+                            </div>
+                            <div class="ecosystem-card">
+                                <div class="ecosystem-title">Media</div>
+                                <div class="ecosystem-copy">Media strategy, specifications, activation, performance and optimisation signals.</div>
+                            </div>
+                            <div class="ecosystem-card">
+                                <div class="ecosystem-title">CMIA</div>
+                                <div class="ecosystem-copy">Insight, social intelligence, testing and content-effectiveness learning.</div>
+                            </div>
+                            <div class="ecosystem-card">
+                                <div class="ecosystem-title">Shopper &amp; Design</div>
+                                <div class="ecosystem-copy">Retail requirements, shopper priorities and brand-design governance.</div>
+                            </div>
+                            <div class="ecosystem-card">
+                                <div class="ecosystem-title">Creator Agency</div>
+                                <div class="ecosystem-copy">Creator outreach and management, coordinated through approved workflows.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-workflows">
+                    <div class="page-header">
+                        <div>
+                            <div class="page-badge">Interactive workflow router</div>
+                            <h1 id="workflows-title">Route the work before you resource it.</h1>
+                            <p id="workflows-subtitle">Select a content typology to see the recommended Brief–Idea–Development–Production–Activate–Optimize pathway, lead owner and mandatory controls.</p>
+                        </div>
+                        <button class="secondary-button" id="workflow-export-button">Export route summary</button>
+                    </div>
+
+                    <div class="router-layout">
+                        <div class="panel router-selector">
+                            <div class="selector-label">Select content typology</div>
+                            <div class="route-options">
+                                <button class="route-option active" data-route="prime"><span>Prime amplification</span><span>→</span></button>
+                                <button class="route-option" data-route="local"><span>Local campaign development</span><span>→</span></button>
+                                <button class="route-option" data-route="evergreen"><span>Evergreen content</span><span>→</span></button>
+                                <button class="route-option" data-route="realtime"><span>Real-time content</span><span>→</span></button>
+                                <button class="route-option" data-route="creator"><span>Creator content</span><span>→</span></button>
+                                <button class="route-option" data-route="shopper"><span>Shopper &amp; commerce</span><span>→</span></button>
+                            </div>
+                            <div class="router-note">SLA values should be populated from the approved service catalogue, complexity matrix and market audit—not assumed at intake.</div>
+                        </div>
+
+                        <div class="panel route-result">
+                            <div class="route-result-head">
+                                <div>
+                                    <div class="route-result-kicker">Recommended pathway</div>
+                                    <div class="route-result-title" id="route-result-title">Amplify an approved prime campaign</div>
+                                    <div class="route-result-copy" id="route-result-copy">Use the AOR’s approved campaign platform and core assets as the source system. AMP extends the idea into channel-native content without reinventing the campaign.</div>
+                                </div>
+                                <div class="route-owner" id="route-owner">Lead: AMP / BAS</div>
+                            </div>
+
+                            <div class="stage-line">
+                                <div class="stage-card">
+                                    <div class="stage-number">01</div>
+                                    <div class="stage-title">Brief</div>
+                                    <div class="stage-owner" id="stage-owner-0">Nestlé + AMP</div>
+                                    <div class="stage-activity" id="stage-activity-0">Validate demand, toolkit, media requirements, markets and available assets.</div>
+                                    <div class="stage-tool" id="stage-tool-0">Input: approved integrated brief</div>
+                                </div>
+                                <div class="stage-card">
+                                    <div class="stage-number">02</div>
+                                    <div class="stage-title">Idea</div>
+                                    <div class="stage-owner" id="stage-owner-1">Creative AOR</div>
+                                    <div class="stage-activity" id="stage-activity-1">Transfer the approved campaign platform, creative idea and guardrails.</div>
+                                    <div class="stage-tool" id="stage-tool-1">Gate: no reinvention</div>
+                                </div>
+                                <div class="stage-card">
+                                    <div class="stage-number">03</div>
+                                    <div class="stage-title">Development</div>
+                                    <div class="stage-owner" id="stage-owner-2">AMP / BAS</div>
+                                    <div class="stage-activity" id="stage-activity-2">Create the content architecture, modular system and platform-native expressions.</div>
+                                    <div class="stage-tool" id="stage-tool-2">Media + market inputs</div>
+                                </div>
+                                <div class="stage-card">
+                                    <div class="stage-number">04</div>
+                                    <div class="stage-title">Production</div>
+                                    <div class="stage-owner" id="stage-owner-3">AMP + NBS/IMS</div>
+                                    <div class="stage-activity" id="stage-activity-3">Produce amplification masters; route industrial adaptation and localisation by triage.</div>
+                                    <div class="stage-tool" id="stage-tool-3">CreativeX · Content Hub</div>
+                                </div>
+                                <div class="stage-card">
+                                    <div class="stage-number">05</div>
+                                    <div class="stage-title">Activate</div>
+                                    <div class="stage-owner" id="stage-owner-4">Media + Markets</div>
+                                    <div class="stage-activity" id="stage-activity-4">Deploy approved assets across paid, owned, earned and shared touchpoints.</div>
+                                    <div class="stage-tool" id="stage-tool-4">NCID · channel specs</div>
+                                </div>
+                                <div class="stage-card">
+                                    <div class="stage-number">06</div>
+                                    <div class="stage-title">Optimize</div>
+                                    <div class="stage-owner" id="stage-owner-5">Nestlé + Media + AMP</div>
+                                    <div class="stage-activity" id="stage-activity-5">Use performance and social signals to prioritise, adapt and refresh content.</div>
+                                    <div class="stage-tool" id="stage-tool-5">Talkwalker · performance data</div>
+                                </div>
+                            </div>
+
+                            <div class="gate-strip">
+                                <div class="gate-card"><strong>Reuse gate</strong>Search Content Hub and confirm rights before commissioning new creation.</div>
+                                <div class="gate-card"><strong>Production gate</strong>Nestlé BAS team confirms in-house versus direct-decoupling route.</div>
+                                <div class="gate-card"><strong>Delivery gate</strong>Final files, metadata, NCID, rights and open files are complete.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-tools">
+                    <div class="page-header">
+                        <div>
+                            <div class="page-badge">Technology ecosystem</div>
+                            <h1 id="tools-title">One workflow. Approved tools in the right place.</h1>
+                            <p id="tools-subtitle">Technology should simplify the operating model, not create a parallel one. Nestlé-owned and approved platforms remain the default across the content lifecycle.</p>
+                        </div>
+                        <button class="secondary-button" data-go="governance">View AI guardrails</button>
+                    </div>
+
+                    <div class="tools-intro">
+                        <div class="principle-banner">
+                            <div class="principle-banner-title">Nestlé Tools First</div>
+                            <div class="principle-banner-copy">Use the existing Nestlé ecosystem wherever equivalent capability exists. Every additional tool must address a real gap, integrate cleanly, avoid duplicate cost and meet data, security, rights and compliance requirements.</div>
+                        </div>
+                        <div class="panel open-card">
+                            <div class="open-label">Orchestration layer</div>
+                            <div class="open-title">WPP Open</div>
+                            <div class="open-copy">A connected workspace bringing people, process, data and approved capabilities together.</div>
+                            <div class="open-rule">It complements—not replaces—Nestlé-owned platforms.</div>
+                        </div>
+                    </div>
+
+                    <div class="tool-stage">
+                        <div class="tool-stage-label">Insight &amp; planning</div>
+                        <div class="tool-cards">
+                            <button class="tool-card" data-tool="talkwalker">
+                                <div class="tool-name">Talkwalker</div>
+                                <div class="tool-purpose">Social listening, sentiment and cultural signals.</div>
+                            </button>
+                            <button class="tool-card" data-tool="open">
+                                <div class="tool-name">WPP Open</div>
+                                <div class="tool-purpose">Briefing, orchestration and connected workflows.</div>
+                            </button>
+                            <button class="tool-card" data-tool="media">
+                                <div class="tool-name">Media data</div>
+                                <div class="tool-purpose">Channel requirements and performance learning.</div>
+                            </button>
+                            <button class="tool-card" data-tool="linkai">
+                                <div class="tool-name">Kantar LinkAI</div>
+                                <div class="tool-purpose">Attention, distinctiveness and brand relevance.</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tool-stage">
+                        <div class="tool-stage-label">Create &amp; produce</div>
+                        <div class="tool-cards">
+                            <button class="tool-card" data-tool="adobe">
+                                <div class="tool-name">Adobe Creative Cloud</div>
+                                <div class="tool-purpose">Design, editing, motion and production craft.</div>
+                            </button>
+                            <button class="tool-card" data-tool="firefly">
+                                <div class="tool-name">Adobe Firefly</div>
+                                <div class="tool-purpose">Approved generative production use cases.</div>
+                            </button>
+                            <button class="tool-card" data-tool="getty">
+                                <div class="tool-name">Getty</div>
+                                <div class="tool-purpose">Approved stock and commercially safe generation.</div>
+                            </button>
+                            <button class="tool-card" data-tool="nvidia">
+                                <div class="tool-name">NVIDIA Digital Twins</div>
+                                <div class="tool-purpose">Reusable product twins and advanced imagery.</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tool-stage">
+                        <div class="tool-stage-label">Govern &amp; scale</div>
+                        <div class="tool-cards">
+                            <button class="tool-card" data-tool="creativex">
+                                <div class="tool-name">CreativeX</div>
+                                <div class="tool-purpose">Mandatory digital creative-hygiene pre-flight.</div>
+                            </button>
+                            <button class="tool-card" data-tool="creatoriq">
+                                <div class="tool-name">CreatorIQ</div>
+                                <div class="tool-purpose">Creator discovery, governance and reporting.</div>
+                            </button>
+                            <button class="tool-card" data-tool="storyteq">
+                                <div class="tool-name">Storyteq</div>
+                                <div class="tool-purpose">Template-led adaptation operated with NBS/IMS.</div>
+                            </button>
+                            <button class="tool-card" data-tool="contenthub">
+                                <div class="tool-name">Content Hub</div>
+                                <div class="tool-purpose">Assets, metadata, rights, approvals and reuse.</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="guardrail-grid">
+                        <div class="guardrail-card">
+                            <div class="guardrail-icon">01</div>
+                            <div class="guardrail-title">Approved tools only</div>
+                            <div class="guardrail-copy">Consumer-facing AI content uses authorised Nestlé solutions and licences.</div>
+                        </div>
+                        <div class="guardrail-card">
+                            <div class="guardrail-icon">02</div>
+                            <div class="guardrail-title">Humans remain accountable</div>
+                            <div class="guardrail-copy">Every input, output, control point and approval has a named human owner.</div>
+                        </div>
+                        <div class="guardrail-card">
+                            <div class="guardrail-icon">03</div>
+                            <div class="guardrail-title">No synthetic people or pets</div>
+                            <div class="guardrail-copy">Synthetic humans and pets are not used in consumer-facing marketing content.</div>
+                        </div>
+                        <div class="guardrail-card">
+                            <div class="guardrail-icon">04</div>
+                            <div class="guardrail-title">Protect rights and trust</div>
+                            <div class="guardrail-copy">Sources, licences, permissions, disclosures and usage rights are documented.</div>
+                        </div>
+                        <div class="guardrail-card">
+                            <div class="guardrail-icon">05</div>
+                            <div class="guardrail-title">Avoid high-risk uses</div>
+                            <div class="guardrail-copy">AI is not used casually for claims, reviews, testimonials or packaging content.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-governance">
+                    <div class="page-header">
+                        <div>
+                            <div class="page-badge">Governance &amp; quality</div>
+                            <h1 id="governance-title">Fast decisions need clear authority.</h1>
+                            <p id="governance-subtitle">The governance model establishes one accountable Nestlé decision maker, explicit partner boundaries, quality gates and a visible escalation path.</p>
+                        </div>
+                        <button class="primary-button" id="download-raci-button">Download RACI</button>
+                    </div>
+
+                    <div class="governance-grid">
+                        <div class="panel cadence-panel">
+                            <div class="mini-heading"><span>Recommended operating cadence</span><span>↻</span></div>
+                            <div class="cadence-list">
+                                <div class="cadence-row">
+                                    <div class="cadence-time">Daily</div>
+                                    <div>
+                                        <div class="cadence-title">Studio delivery stand-up</div>
+                                        <div class="cadence-copy">Capacity, risks, blockers and immediate handoffs.</div>
+                                    </div>
+                                </div>
+                                <div class="cadence-row">
+                                    <div class="cadence-time">Weekly</div>
+                                    <div>
+                                        <div class="cadence-title">Demand and delivery review</div>
+                                        <div class="cadence-copy">Priorities, briefs, approvals and resource changes.</div>
+                                    </div>
+                                </div>
+                                <div class="cadence-row">
+                                    <div class="cadence-time">Monthly</div>
+                                    <div>
+                                        <div class="cadence-title">Network performance forum</div>
+                                        <div class="cadence-copy">Quality, use, speed, cost, adoption and learning.</div>
+                                    </div>
+                                </div>
+                                <div class="cadence-row">
+                                    <div class="cadence-time">Quarterly</div>
+                                    <div>
+                                        <div class="cadence-title">Business and improvement review</div>
+                                        <div class="cadence-copy">Capacity, capability, innovation and commercial controls.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel gates-panel">
+                            <div class="mini-heading"><span>Mandatory quality gates</span><span>7 controls</span></div>
+                            <div class="quality-gates">
+                                <div class="quality-gate">
+                                    <div class="quality-gate-index">1</div>
+                                    <div>
+                                        <div class="quality-gate-title">Brief completeness</div>
+                                        <div class="quality-gate-copy">Objective, audience, owner, budget, timing and asset demand.</div>
+                                    </div>
+                                </div>
+                                <div class="quality-gate">
+                                    <div class="quality-gate-index">2</div>
+                                    <div>
+                                        <div class="quality-gate-title">Reuse and rights</div>
+                                        <div class="quality-gate-copy">Search existing assets and validate permitted use.</div>
+                                    </div>
+                                </div>
+                                <div class="quality-gate">
+                                    <div class="quality-gate-index">3</div>
+                                    <div>
+                                        <div class="quality-gate-title">Creative qualification</div>
+                                        <div class="quality-gate-copy">Use LinkAI or approved testing where required.</div>
+                                    </div>
+                                </div>
+                                <div class="quality-gate">
+                                    <div class="quality-gate-index">4</div>
+                                    <div>
+                                        <div class="quality-gate-title">Production route</div>
+                                        <div class="quality-gate-copy">Confirm in-house, NBS/IMS or direct decoupling.</div>
+                                    </div>
+                                </div>
+                                <div class="quality-gate">
+                                    <div class="quality-gate-index">5</div>
+                                    <div>
+                                        <div class="quality-gate-title">CreativeX pre-flight</div>
+                                        <div class="quality-gate-copy">Digital assets pass mandatory hygiene checks.</div>
+                                    </div>
+                                </div>
+                                <div class="quality-gate">
+                                    <div class="quality-gate-index">6</div>
+                                    <div>
+                                        <div class="quality-gate-title">Nestlé approval</div>
+                                        <div class="quality-gate-copy">Brand, legal, regulatory and final accountable approval.</div>
+                                    </div>
+                                </div>
+                                <div class="quality-gate">
+                                    <div class="quality-gate-index">7</div>
+                                    <div>
+                                        <div class="quality-gate-title">Content Hub delivery</div>
+                                        <div class="quality-gate-copy">Metadata, rights, NCID and editable masters are complete.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel raci-panel">
+                        <div class="raci-head">
+                            <div class="section-heading">
+                                <div>
+                                    <h2 id="raci-title">Core decision-rights snapshot</h2>
+                                    <p id="raci-copy">A practical starting point; detailed RACIs should be confirmed by workflow and market.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="raci-scroll">
+                            <td<span class="raci-marker raci-c">C
+                                        </td<span><table>
+                                <thead>
+                                    <tr>
+                                        <th>Decision / activity</th>
+                                        <th>Nestlé</th>
+                                        <th>AMP / BAS</th>
+                                        <th>Creative AOR</th>
+                                        <th>NBS / IMS</th>
+                                        <th>Media</th>
+                                        <th>Production</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Annual content strategy and priorities</td>
+                                        <td><span class="raci-marker raci-a">A/R</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prime campaign platform and big idea</td>
+                                        <td><span class="raci-marker raci-a">A</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-r">R</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Amplification and channel multiplicity</td>
+                                        <td><span class="raci-marker raci-a">A</span></td>
+                                        <td><span class="raci-marker raci-r">R</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Industrial adaptation and localisation</td>
+                                        <td><span class="raci-marker raci-a">A</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                        <td><span class="raci-marker raci-r">R</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Media activation and buying</td>
+                                        <td><span class="raci-marker raci-a">A</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                        <td><span class="raci-marker raci-r">R</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Final brand and compliance approval</td>
+                                        <td><span class="raci-marker raci-a">A/R</span></td>
+                                        <td><span class="raci-marker raci-c">C</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                        <td><span class="raci-marker raci-i">I</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-library">
+                    <div class="page-header">
+                        <div>
+                            <div class="page-badge">Controlled knowledge base</div>
+                            <h1 id="library-title">The source behind every recommendation.</h1>
+                            <p id="library-subtitle">Find current briefs, global guidelines, operating playbooks, brand toolkits, technology guidance, commercial evidence and implementation precedent.</p>
+                        </div>
+                        <button class="primary-button" id="upload-source-button">＋ Add source</button>
+                    </div>
+
+                    <div class="library-layout">
+                        <div class="panel library-sidebar">
+                            <div class="mini-heading"><span>Collections</span><span>12</span></div>
+                            <div class="library-count">Current and reference materials</div>
+                            <div class="library-filters">
+                                <button class="library-filter active" data-library-filter="all"><span>All knowledge</span><span>12</span></button>
+                                <button class="library-filter" data-library-filter="brief"><span>Client briefs</span><span>3</span></button>
+                                <button class="library-filter" data-library-filter="process"><span>Processes</span><span>2</span></button>
+                                <button class="library-filter" data-library-filter="production"><span>Production</span><span>2</span></button>
+                                <button class="library-filter" data-library-filter="technology"><span>Technology &amp; AI</span><span>2</span></button>
+                                <button class="library-filter" data-library-filter="evidence"><span>Evidence &amp; precedent</span><span>3</span></button>
+                            </div>
+                        </div>
+
+                        <div class="panel library-main">
+                            <div class="library-search">
+                                <span>⌕</span>
+                                <input id="library-search-input" type="search" placeholder="Search titles, topics or document tags">
+                            </div>
+
+                            <div class="document-list" id="document-list">
+                                <button class="doc-row" data-category="brief" data-search="phase 2 rfp brief brand amplification studio operating model commercials" data-doc="phase2">
+                                    <div>
+                                        <div class="doc-row-title">Brand Amplification Studios — Phase 2 RFP Brief</div>
+                                        <div class="doc-row-tags"><span class="tag">Current brief</span><span class="tag">Zone Europe</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">22 Jul 2026<br>Client authority</div>
+                                    <div class="doc-row-meta">Operating model<br>Brand briefs</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="brief" data-search="nescafe rtd barista style toolkit global campaign" data-doc="nescafe">
+                                    <div>
+                                        <div class="doc-row-title">NESCAFÉ RTD 2026 Toolkit &amp; Phase 2 Brief</div>
+                                        <div class="doc-row-tags"><span class="tag">Brand toolkit</span><span class="tag">Test case</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">Apr–Jul 2026<br>Active toolkit</div>
+                                    <div class="doc-row-meta">Coffee<br>Amplification</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="brief" data-search="sma services local brand gut health restricted category" data-doc="sma">
+                                    <div>
+                                        <div class="doc-row-title">SMA Services Campaign — Local Brand Brief</div>
+                                        <div class="doc-row-tags"><span class="tag">Local brand</span><span class="tag">Regulated</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">22 Jul 2026<br>Pitch test case</div>
+                                    <div class="doc-row-meta">Nutrition<br>UK&amp;I</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="process" data-search="unforgettable communications process brief idea development production optimize" data-doc="unforgettable">
+                                    <div>
+                                        <div class="doc-row-title">Unforgettable Communication Process</div>
+                                        <div class="doc-row-tags"><span class="tag">Global process</span><span class="tag">Active</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">Feb 2026<br>Global guidance</div>
+                                    <div class="doc-row-meta">End-to-end<br>Decision gates</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="production" data-search="original content production playbook direct decoupling ai modularity" data-doc="production">
+                                    <div>
+                                        <div class="doc-row-title">Original Content Production Playbook</div>
+                                        <div class="doc-row-tags"><span class="tag">Production</span><span class="tag">AI</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">Oct 2025<br>Global guidance</div>
+                                    <div class="doc-row-meta">Production<br>Modularity</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="process" data-search="how to deliver business impact content studios value proposition" data-doc="impact">
+                                    <div>
+                                        <div class="doc-row-title">How to Deliver More Business Impact with Content Studios</div>
+                                        <div class="doc-row-tags"><span class="tag">Studio evolution</span><span class="tag">Value</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">Oct 2025<br>Global guidance</div>
+                                    <div class="doc-row-meta">Capabilities<br>Impact</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="production" data-search="digital twin nvidia omniverse ims service line" data-doc="digitaltwin">
+                                    <div>
+                                        <div class="doc-row-title">IMS Digital Twin Service Line</div>
+                                        <div class="doc-row-tags"><span class="tag">NVIDIA</span><span class="tag">IMS</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">Oct 2025<br>Service guidance</div>
+                                    <div class="doc-row-meta">Digital twins<br>Localisation</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="technology" data-search="generative ai content legal rights approved tools firefly getty" data-doc="ai">
+                                    <div>
+                                        <div class="doc-row-title">Generative AI for Nestlé Marketing Content</div>
+                                        <div class="doc-row-tags"><span class="tag">AI governance</span><span class="tag">Legal</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">Jun 2025<br>Version 1.2</div>
+                                    <div class="doc-row-meta">Rights<br>Responsible use</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="technology" data-search="content hub creativex talkwalker creatoriq tools ecosystem" data-doc="toolsdoc">
+                                    <div>
+                                        <div class="doc-row-title">Nestlé Content Technology Ecosystem</div>
+                                        <div class="doc-row-tags"><span class="tag">Tools First</span><span class="tag">Workflow</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">Current<br>Reference set</div>
+                                    <div class="doc-row-meta">Platforms<br>Integration</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="evidence" data-search="phase 1 submission wpp content operating model growth studios precedent" data-doc="phase1">
+                                    <div>
+                                        <div class="doc-row-title">WPP Zone Europe Phase 1 Submission</div>
+                                        <div class="doc-row-tags"><span class="tag">Submitted commitment</span><span class="tag">Precedent</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">May 2026<br>Submitted</div>
+                                    <div class="doc-row-meta">WPP model<br>Evidence</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="evidence" data-search="china pitch nest operating model one team hub process platform" data-doc="china">
+                                    <div>
+                                        <div class="doc-row-title">Nestlé Greater China — NEST Operating Model</div>
+                                        <div class="doc-row-tags"><span class="tag">Transferable precedent</span><span class="tag">Workflow</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">Jun 2026<br>Reference</div>
+                                    <div class="doc-row-meta">Orchestration<br>Agentic workflow</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+
+                                <button class="doc-row" data-category="evidence" data-search="portugal france philippines brazil content studio cases" data-doc="cases">
+                                    <div>
+                                        <div class="doc-row-title">Content Studio Case &amp; Pitch Archive</div>
+                                        <div class="doc-row-tags"><span class="tag">Case studies</span><span class="tag">Lessons</span></div>
+                                    </div>
+                                    <div class="doc-row-meta">2020–2026<br>Reference archive</div>
+                                    <div class="doc-row-meta">Studios<br>Implementation</div>
+                                    <span class="doc-open">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-backdrop" id="search-overlay" hidden="">
+        <div class="modal">
+            <div class="modal-head">
+                <div>
+                    <h2 id="search-modal-title">Search the Atelier</h2>
+                    <p id="search-modal-copy">Find brands, hubs, workflows, tools and source documents.</p>
+                </div>
+                <button class="modal-close" data-close="search-overlay" aria-label="Close search">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="palette-input">
+                    <span>⌕</span>
+                    <input id="palette-search" type="search" placeholder="What are you looking for?">
+                </div>
+                <div class="search-results" id="search-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="brief-modal" hidden="">
+        <div class="modal">
+            <div class="modal-head">
+                <div>
+                    <h2 id="brief-modal-title">Start a new brief</h2>
+                    <p id="brief-modal-copy">Capture enough information for initial typology classification and routing.</p>
+                </div>
+                <button class="modal-close" data-close="brief-modal" aria-label="Close brief">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="brief-form">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="brief-brand">Brand</label>
+                            <input id="brief-brand" required="" placeholder="Select or enter a brand">
+                        </div>
+                        <div class="form-field">
+                            <label for="brief-market">Lead market / cluster</label>
+                            <input id="brief-market" required="" placeholder="e.g. UK&amp;I">
+                        </div>
+                        <div class="form-field">
+                            <label for="brief-type">Likely content type</label>
+                            <select id="brief-type">
+                                <option>Unsure — route for me</option>
+                                <option>Prime campaign amplification</option>
+                                <option>Local campaign development</option>
+                                <option>Evergreen content</option>
+                                <option>Real-time content</option>
+                                <option>Creator content</option>
+                                <option>Shopper and commerce</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="brief-date">Required live date</label>
+                            <input id="brief-date" type="date">
+                        </div>
+                        <div class="form-field full">
+                            <label for="brief-challenge">Business and communication challenge</label>
+                            <textarea id="brief-challenge" required="" placeholder="What needs to change, for whom, and why?"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="secondary-button" type="button" data-close="brief-modal">Cancel</button>
+                        <button class="primary-button" type="submit">Save and route</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="brand-modal" hidden="">
+        <div class="modal wide">
+            <div class="modal-head">
+                <div>
+                    <h2 id="brand-modal-title">Brand profile</h2>
+                    <p id="brand-modal-copy">Strategy, operating requirements and current guardrails.</p>
+                </div>
+                <button class="modal-close" data-close="brand-modal" aria-label="Close brand profile">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-grid">
+                    <div class="detail-aside">
+                        <div class="detail-brand-mark" id="detail-brand-mark">AMP</div>
+                        <div class="detail-brand-name" id="detail-brand-name">Brand</div>
+                        <div class="detail-brand-meta" id="detail-brand-meta">Category · Governance · Market</div>
+                    </div>
+                    <div>
+                        <div class="detail-section">
+                            <div class="detail-label">Current task</div>
+                            <div class="detail-value" id="detail-brand-task"></div>
+                        </div>
+                        <div class="detail-section">
+                            <div class="detail-label">Platform / strategic foundation</div>
+                            <div class="detail-value" id="detail-brand-platform"></div>
+                        </div>
+                        <div class="detail-section">
+                            <div class="detail-label">Audience and channels</div>
+                            <div class="detail-value" id="detail-brand-audience"></div>
+                        </div>
+                        <div class="detail-callout" id="detail-brand-guardrail"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="tool-modal" hidden="">
+        <div class="modal">
+            <div class="modal-head">
+                <div>
+                    <h2 id="tool-modal-title">Tool profile</h2>
+                    <p id="tool-modal-copy">Role, workflow stage and control point.</p>
+                </div>
+                <button class="modal-close" data-close="tool-modal" aria-label="Close tool profile">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-section">
+                    <div class="detail-label">Purpose</div>
+                    <div class="detail-value" id="tool-detail-purpose"></div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-label">Workflow role</div>
+                    <div class="detail-value" id="tool-detail-workflow"></div>
+                </div>
+                <div class="detail-callout" id="tool-detail-control"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="document-modal" hidden="">
+        <div class="modal">
+            <div class="modal-head">
+                <div>
+                    <h2 id="document-modal-title">Source document</h2>
+                    <p id="document-modal-copy">Knowledge summary and authority.</p>
+                </div>
+                <button class="modal-close" data-close="document-modal" aria-label="Close document">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-section">
+                    <div class="detail-label">Why this source matters</div>
+                    <div class="detail-value" id="document-detail-summary"></div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-label">Use it for</div>
+                    <div class="detail-value" id="document-detail-use"></div>
+                </div>
+                <div class="detail-callout" id="document-detail-authority"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Saved</div>
+
+    <script>
+        const viewNames = {
+            home: "Atelier Home",
+            studios: "Studios & Markets",
+            brands: "Brand Library",
+            operating: "Operating Model",
+            workflows: "Workflow Router",
+            tools: "Tools & AI",
+            governance: "Governance",
+            library: "Knowledge Library"
+        };
+
+        function switchView(viewName) {
+            document.querySelectorAll(".view").forEach((view) => view.classList.remove("active"));
+            document.querySelectorAll(".nav-item").forEach((item) => item.classList.remove("active"));
+
+            const selectedView = document.getElementById("view-" + viewName);
+            const selectedNav = document.querySelector('.nav-item[data-view="' + viewName + '"]');
+
+            if (selectedView) selectedView.classList.add("active");
+            if (selectedNav) selectedNav.classList.add("active");
+
+            document.getElementById("breadcrumb-current").textContent = viewNames[viewName] || "Atelier";
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        document.querySelectorAll(".nav-item").forEach((button) => {
+            button.addEventListener("click", () => switchView(button.dataset.view));
+        });
+
+        document.querySelectorAll("[data-go]").forEach((button) => {
+            button.addEventListener("click", () => switchView(button.dataset.go));
+        });
+
+        function openModal(id) {
+            const element = document.getElementById(id);
+            if (element) element.hidden = false;
+        }
+
+        function closeModal(id) {
+            const element = document.getElementById(id);
+            if (element) element.hidden = true;
+        }
+
+        document.querySelectorAll("[data-close]").forEach((button) => {
+            button.addEventListener("click", () => closeModal(button.dataset.close));
+        });
+
+        document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
+            backdrop.addEventListener("click", (event) => {
+                if (event.target === backdrop) backdrop.hidden = true;
+            });
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+                event.preventDefault();
+                openSearch("");
+            }
+
+            if (event.key === "Escape") {
+                document.querySelectorAll(".modal-backdrop").forEach((modal) => modal.hidden = true);
+            }
+        });
+
+        const searchItems = [
+            { title: "NESCAFÉ RTD brand workspace", meta: "Brand · Coffee · Global amplification", view: "brands", icon: "N" },
+            { title: "SMA Services regulatory profile", meta: "Brand · Nutrition · Local campaign", view: "brands", icon: "S" },
+            { title: "Prime campaign amplification route", meta: "Workflow · Brief to optimisation", view: "workflows", icon: "W" },
+            { title: "Creator content route", meta: "Workflow · CreatorIQ · Paid amplification", view: "workflows", icon: "C" },
+            { title: "Five-hub network", meta: "Studios · Markets · Provisional footprint", view: "studios", icon: "5" },
+            { title: "Nestlé-led operating model", meta: "Roles · Governance · Decision rights", view: "operating", icon: "O" },
+            { title: "Content Hub", meta: "Tool · DAM · Metadata · Rights", view: "tools", icon: "CH" },
+            { title: "CreativeX", meta: "Tool · Mandatory digital pre-flight", view: "tools", icon: "CX" },
+            { title: "Generative AI guardrails", meta: "Governance · Rights · Approved use", view: "tools", icon: "AI" },
+            { title: "Brand Amplification Studios Phase 2 RFP", meta: "Source · Current client authority", view: "library", icon: "R" },
+            { title: "Unforgettable Communication Process", meta: "Source · Global process", view: "library", icon: "U" },
+            { title: "Original Content Production Playbook", meta: "Source · Production guidance", view: "library", icon: "P" }
+        ];
+
+        function renderSearchResults(query) {
+            const results = document.getElementById("search-results");
+            const normalized = query.trim().toLowerCase();
+            const filtered = searchItems.filter((item) => {
+                return !normalized || (item.title + " " + item.meta).toLowerCase().includes(normalized);
+            });
+
+            results.innerHTML = "";
+
+            if (!filtered.length) {
+                const empty = document.createElement("div");
+                empty.className = "empty-state";
+                empty.textContent = "No exact match. Try a brand, content type, hub, tool or source title.";
+                results.appendChild(empty);
+                return;
+            }
+
+            filtered.forEach((item) => {
+                const button = document.createElement("button");
+                button.className = "search-result";
+
+                const icon = document.createElement("span");
+                icon.className = "result-icon";
+                icon.textContent = item.icon;
+
+                const content = document.createElement("span");
+                const title = document.createElement("span");
+                title.className = "result-title";
+                title.textContent = item.title;
+                const meta = document.createElement("span");
+                meta.className = "result-meta";
+                meta.textContent = item.meta;
+                content.appendChild(title);
+                content.appendChild(meta);
+
+                const arrow = document.createElement("span");
+                arrow.className = "result-arrow";
+                arrow.textContent = "→";
+
+                button.appendChild(icon);
+                button.appendChild(content);
+                button.appendChild(arrow);
+
+                button.addEventListener("click", () => {
+                    closeModal("search-overlay");
+                    switchView(item.view);
+                });
+
+                results.appendChild(button);
+            });
+        }
+
+        function openSearch(query) {
+            openModal("search-overlay");
+            const palette = document.getElementById("palette-search");
+            palette.value = query;
+            renderSearchResults(query);
+            window.setTimeout(() => palette.focus(), 30);
+        }
+
+        document.getElementById("global-search").addEventListener("focus", (event) => {
+            openSearch(event.target.value);
+            event.target.blur();
+        });
+
+        document.getElementById("global-search").addEventListener("keydown", (event) => {
+            if (event.key === "Enter") openSearch(event.target.value);
+        });
+
+        document.getElementById("palette-search").addEventListener("input", (event) => {
+            renderSearchResults(event.target.value);
+        });
+
+        document.getElementById("new-brief-button").addEventListener("click", () => openModal("brief-modal"));
+
+        document.getElementById("brief-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            closeModal("brief-modal");
+            event.target.reset();
+            showToast("Brief saved as a draft and queued for typology routing.");
+            switchView("workflows");
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+            window.setTimeout(() => toast.classList.remove("show"), 2800);
+        }
+
+        document.getElementById("notification-button").addEventListener("click", () => {
+            showToast("3 active updates: terminology, hub audit caveat and CreativeX gate.");
+        });
+
+        document.getElementById("add-brand-button").addEventListener("click", () => {
+            showToast("Brand workspace request opened for administrator review.");
+        });
+
+        document.getElementById("upload-source-button").addEventListener("click", () => {
+            showToast("Source upload is available to approved workspace editors.");
+        });
+
+        document.getElementById("download-raci-button").addEventListener("click", () => {
+            showToast("RACI snapshot prepared for export.");
+        });
+
+        document.getElementById("workflow-export-button").addEventListener("click", () => {
+            showToast("Workflow summary prepared for export.");
+        });
+
+        document.querySelectorAll(".bookmark").forEach((button) => {
+            button.addEventListener("click", (event) => {
+                event.stopPropagation();
+                button.classList.toggle("saved");
+                button.textContent = button.classList.contains("saved") ? "★" : "☆";
+                showToast(button.classList.contains("saved") ? "Added to saved brands." : "Removed from saved brands.");
+            });
+        });
+
+        let activeBrandFilter = "all";
+
+        function filterBrands() {
+            const search = document.getElementById("brand-search").value.trim().toLowerCase();
+
+            document.querySelectorAll(".brand-card").forEach((card) => {
+                const matchesFilter = activeBrandFilter === "all" || card.dataset.kind.includes(activeBrandFilter);
+                const matchesSearch = !search || card.dataset.name.includes(search);
+                card.hidden = !(matchesFilter && matchesSearch);
+            });
+        }
+
+        document.querySelectorAll(".brand-filter").forEach((button) => {
+            button.addEventListener("click", () => {
+                document.querySelectorAll(".brand-filter").forEach((chip) => chip.classList.remove("active"));
+                button.classList.add("active");
+                activeBrandFilter = button.dataset.filter;
+                filterBrands();
+            });
+        });
+
+        document.getElementById("brand-search").addEventListener("input", filterBrands);
+
+        const brandDetails = {
+            nescafe: {
+                mark: "NRTD",
+                name: "NESCAFÉ RTD",
+                meta: "Coffee · Global campaign amplification · Multi-market",
+                task: "Translate the approved global campaign toolkit into a market-by-market content and deployment system spanning social, creator, shopper, commerce, CRM and evergreen content.",
+                platform: "NESCAFÉ — Make Your World. Current strategic line: “Pleasure made to move with you.” Current campaign execution: “Cool. Smooth. Always Ready.”",
+                audience: "Primary: Explorers. Secondary: Perfectionists. Priority environments include TikTok, Instagram, YouTube, Meta, creator content, urban OOH, shopper and eCommerce.",
+                guardrail: "Do not create a new campaign. The role of AMP is to amplify, adapt, localise and scale the existing AOR platform and master assets."
+            },
+            kitkat: {
+                mark: "KK",
+                name: "KitKat",
+                meta: "Confectionery · Global brand · North Hub",
+                task: "Extend established campaign ideas into platform-native, creator-ready and locally relevant expressions across the content ecosystem.",
+                platform: "Long-term Big Idea: Have a Break, Have a KitKat. Current campaign thinking should retain consistency and only evolve within approved brand territories.",
+                audience: "Broad category buyers with activation against priority audience groups, culture, entertainment, gaming, sport and break occasions.",
+                guardrail: "Protect the long-term Big Idea. New executions should build memory structures rather than replace a campaign that is still effective."
+            },
+            maggi: {
+                mark: "MG",
+                name: "Maggi",
+                meta: "Food · Central brand · East Hub",
+                task: "Connect campaign amplification, evergreen culinary content, creators, shopper and real-time opportunities into one scalable content plan.",
+                platform: "Brand-specific platform and market strategy must be confirmed from current brand sources before creative work begins.",
+                audience: "Cooks, families and food communities across culturally diverse East Hub markets, with strong market-level localisation requirements.",
+                guardrail: "Culinary authenticity, product accuracy, food appeal and local cultural relevance must be validated by the appropriate market and category experts."
+            },
+            nesquik: {
+                mark: "NQ",
+                name: "Nesquik",
+                meta: "Dairy & beverages · Central brand · South Hub",
+                task: "Provide a consistent content system that can support central-brand priorities and relevant execution across Spain, Portugal and Italy.",
+                platform: "The active brand platform, content territories and local regulatory requirements must be pulled from the approved brand workspace.",
+                audience: "Family and household audiences, with audience detail confirmed through active annual content and media plans.",
+                guardrail: "Do not infer claims, audiences or product benefits. Use current approved brand, legal and nutrition guidance."
+            },
+            sma: {
+                mark: "SMA",
+                name: "SMA Services",
+                meta: "Nutrition · Local campaign platform · UK & Ireland",
+                task: "Raise awareness, confidence and trust by bringing Midwife Live Chat, the 24/7 Careline, gut-health education and podcast support to life.",
+                platform: "Develop under the existing “Wonder of Babies’ Tummy” Big Idea and the Gut Health Promise.",
+                audience: "Women aged 24–45 who are planning pregnancy, pregnant or have a newborn aged 0–6 months, seeking trusted advice and reassurance.",
+                guardrail: "Restricted category: product must not appear in campaign assets. All creative and claims require the correct medical, legal and regulatory approvals."
+            },
+            dach: {
+                mark: "D",
+                name: "DACH Anchor Workspace",
+                meta: "Germany · Austria · Switzerland · Assignment TBC",
+                task: "Hold audited category, brand, market and capability information once the DACH anchor assignment is confirmed.",
+                platform: "To be populated following the implementation audit and approved Nestlé decision.",
+                audience: "To be confirmed from active brand plans and market requirements.",
+                guardrail: "This is a placeholder, not an approved brand assignment. Do not use it to imply a final operating-model decision."
+            }
+        };
+
+        document.querySelectorAll(".brand-card").forEach((card) => {
+            card.addEventListener("click", () => {
+                const detail = brandDetails[card.dataset.brand];
+                if (!detail) return;
+
+                document.getElementById("detail-brand-mark").textContent = detail.mark;
+                document.getElementById("detail-brand-name").textContent = detail.name;
+                document.getElementById("detail-brand-meta").textContent = detail.meta;
+                document.getElementById("detail-brand-task").textContent = detail.task;
+                document.getElementById("detail-brand-platform").textContent = detail.platform;
+                document.getElementById("detail-brand-audience").textContent = detail.audience;
+                document.getElementById("detail-brand-guardrail").textContent = detail.guardrail;
+                document.getElementById("brand-modal-title").textContent = detail.name;
+                openModal("brand-modal");
+            });
+        });
+
+        const routes = {
+            prime: {
+                title: "Amplify an approved prime campaign",
+                copy: "Use the AOR’s approved campaign platform and core assets as the source system. AMP extends the idea into channel-native content without reinventing the campaign.",
+                lead: "Lead: AMP / BAS",
+                stages: [
+                    ["Nestlé + AMP", "Validate demand, toolkit, media requirements, markets and available assets.", "Input: approved integrated brief"],
+                    ["Creative AOR", "Transfer the approved campaign platform, creative idea and guardrails.", "Gate: no reinvention"],
+                    ["AMP / BAS", "Create the content architecture, modular system and platform-native expressions.", "Media + market inputs"],
+                    ["AMP + NBS/IMS", "Produce amplification masters; route industrial adaptation and localisation by triage.", "CreativeX · Content Hub"],
+                    ["Media + Markets", "Deploy approved assets across paid, owned, earned and shared touchpoints.", "NCID · channel specs"],
+                    ["Nestlé + Media + AMP", "Use performance and social signals to prioritise, adapt and refresh content.", "Talkwalker · performance data"]
+                ]
+            },
+            local: {
+                title: "Develop a local campaign under an existing Big Idea",
+                copy: "For an eligible strategic local brand, AMP can lead campaign-level strategy and creative development while Nestlé retains brand strategy, governance and approval.",
+                lead: "Lead: Nestlé + AMP",
+                stages: [
+                    ["Nestlé", "Confirm brand priority, existing Big Idea, investment sufficiency, objectives and regulatory context.", "Unforgettable brief"],
+                    ["AMP / BAS", "Develop campaign strategy and creative platform under the approved brand foundation.", "Nestlé Hand · testing plan"],
+                    ["AMP + Media", "Build the integrated ecosystem, content matrix, master designs and media plan.", "LinkAI where required"],
+                    ["Production Partner + AMP", "Triage hero production through direct decoupling; AMP produces extended assets.", "IPB · CreativeX"],
+                    ["Media + Market", "Deliver to media, owned channels, creators, shopper and Content Hub.", "NCID · deployment plan"],
+                    ["Nestlé + Media + CMIA", "Review in-flight results and approve content or deployment changes.", "Campaign performance loop"]
+                ]
+            },
+            evergreen: {
+                title: "Originate evergreen content for sustained brand value",
+                copy: "AMP leads strategy, creative development and production for evergreen content, using approved brand territories and annual content plans.",
+                lead: "Lead: AMP / BAS",
+                stages: [
+                    ["Nestlé + AMP", "Confirm annual content need, audience, territory, channel, budget and reuse opportunity.", "Annual content plan"],
+                    ["AMP / BAS", "Develop the editorial or creative content system within approved territories.", "Talkwalker · search insight"],
+                    ["AMP / BAS", "Design modular masters for social, web, CRM, eContent or other owned channels.", "Adobe · platform guidance"],
+                    ["AMP or Production Partner", "Produce in-house where appropriate or use direct decoupling for specialist craft.", "Production triage"],
+                    ["Market + Channel Owners", "Publish or deploy approved assets and register final files in Content Hub.", "Content Hub"],
+                    ["AMP + Media/CMIA", "Review usage, engagement and performance to improve the next cycle.", "Performance dashboard"]
+                ]
+            },
+            realtime: {
+                title: "Respond to a relevant cultural moment",
+                copy: "AMP monitors defined cultural territories and develops agile content inside pre-approved brand, legal and escalation guardrails.",
+                lead: "Lead: AMP / BAS",
+                stages: [
+                    ["AMP + CMIA", "Detect and qualify an opportunity against brand permission, relevance and risk.", "Talkwalker"],
+                    ["AMP / BAS", "Frame a simple platform-native response rather than a new campaign idea.", "Pre-agreed codex"],
+                    ["AMP + Nestlé", "Develop the execution and secure rapid brand or legal approval as required.", "Fast-track RACI"],
+                    ["AMP / BAS", "Produce the approved execution using authorised assets and tools.", "CreativeX"],
+                    ["Market / Channel Owner", "Publish within the approved opportunity window.", "Owned channels"],
+                    ["AMP + CMIA", "Capture reaction, sentiment, performance and reusable learning.", "Social intelligence"]
+                ]
+            },
+            creator: {
+                title: "Build creator content into the campaign system",
+                copy: "Creators are co-creation partners, not an afterthought. AMP connects creator strategy and briefing to the brand idea, media plan and measurement framework.",
+                lead: "Lead: AMP / BAS",
+                stages: [
+                    ["Nestlé + AMP", "Confirm creator role, audience, objective, rights, budget and paid amplification plan.", "Creator strategy"],
+                    ["AMP / BAS", "Develop the creator territory and flexible brief within brand guardrails.", "Creator addendum brief"],
+                    ["AMP + Creator Agency", "Discover, vet and select creators with appropriate audience and brand fit.", "CreatorIQ"],
+                    ["Creators + Creator Agency", "Create authentic content with AMP quality and compliance oversight.", "CreatorIQ · approvals"],
+                    ["Media + Creator Agency", "Publish organically and boost approved high-performing work.", "Partnership ads"],
+                    ["AMP + Media", "Assess creator, asset and paid performance; update the creator bench.", "CreatorIQ reporting"]
+                ]
+            },
+            shopper: {
+                title: "Connect campaign memory to the point of purchase",
+                copy: "AMP develops shopper and commerce content from the approved campaign or brand platform, incorporating retailer requirements upstream.",
+                lead: "Lead: AMP + Shopper",
+                stages: [
+                    ["Nestlé Shopper + AMP", "Define shopper mission, retailer, environment, packs, formats and conversion objective.", "Shopper addendum"],
+                    ["AOR or AMP", "Identify the campaign expression or brand platform that should carry into commerce.", "Approved platform"],
+                    ["AMP / BAS", "Design the shopper ecosystem, modular master and retailer adaptation logic.", "Retail specs"],
+                    ["AMP + NBS/IMS", "Produce masters and route scalable pack, copy, size and language variants.", "Storyteq where suitable"],
+                    ["Retail / Commerce Teams", "Deploy approved assets across physical and digital retail environments.", "Retailer delivery"],
+                    ["Shopper + Media + AMP", "Review visibility, engagement, conversion and retailer learning.", "Commerce performance"]
+                ]
+            }
+        };
+
+        function applyRoute(routeKey) {
+            const route = routes[routeKey];
+            if (!route) return;
+
+            document.querySelectorAll(".route-option").forEach((button) => {
+                button.classList.toggle("active", button.dataset.route === routeKey);
+            });
+
+            document.getElementById("route-result-title").textContent = route.title;
+            document.getElementById("route-result-copy").textContent = route.copy;
+            document.getElementById("route-owner").textContent = route.lead;
+
+            route.stages.forEach((stage, index) => {
+                document.getElementById("stage-owner-" + index).textContent = stage[0];
+                document.getElementById("stage-activity-" + index).textContent = stage[1];
+                document.getElementById("stage-tool-" + index).textContent = stage[2];
+            });
+        }
+
+        document.querySelectorAll(".route-option").forEach((button) => {
+            button.addEventListener("click", () => applyRoute(button.dataset.route));
+        });
+
+        const toolDetails = {
+            talkwalker: ["Talkwalker", "Nestlé’s social-listening platform for consumer conversation, sentiment, cultural signals and campaign diagnostics.", "Used before briefing, during content planning and in-flight to identify relevant signals and measure reaction.", "Social intelligence should inform a human decision; it does not automatically authorise real-time content."],
+            open: ["WPP Open", "A connected workspace for briefs, workflows, approved agents, collaboration and orchestration.", "Connects participants and approved capabilities across the lifecycle without replacing Nestlé systems.", "Every non-Nestlé capability must show incremental value, integration, security and commercial impact."],
+            media: ["Media data", "Provides channel specifications, audience context, asset requirements and performance signals.", "Integrated upstream for demand planning and downstream for in-flight optimisation.", "Media remains accountable for strategy, planning, buying and activation."],
+            linkai: ["Kantar LinkAI", "AI-supported creative qualification covering attention, distinctiveness and brand relevance.", "Used at the appropriate creative-development stage when qualification is required.", "Testing guides expert judgement; it does not replace Nestlé approval."],
+            adobe: ["Adobe Creative Cloud", "Core professional creation suite for design, editing, motion, image and video production.", "Used by studio creative and production teams to develop and package editable masters.", "Files must be structured for reuse, adaptation and Content Hub delivery."],
+            firefly: ["Adobe Firefly", "Approved generative capability for defined consumer-facing content use cases under Nestlé licensing.", "Supports controlled generation, extension and production where the approved use case creates value.", "Human oversight, rights checks and current Nestlé AI guidance remain mandatory."],
+            getty: ["Getty", "Approved stock-content and commercially safe generative-content ecosystem.", "Used when owned or newly produced imagery is unnecessary or inefficient.", "Usage rights, licence terms and Content Hub records must be complete."],
+            nvidia: ["NVIDIA Digital Twins", "Reusable product digital twins and advanced virtual-content production operated with NBS/IMS.", "Supports high-quality product composition, advanced imagery and scalable product variants.", "New digital-twin creation, conversion and localisation follow the approved IMS operating model."],
+            creativex: ["CreativeX", "Mandatory pre-flight platform for digital creative hygiene and platform compliance.", "Applied to near-final digital assets before delivery and activation.", "Passing hygiene requirements is mandatory but does not by itself prove creative effectiveness."],
+            creatoriq: ["CreatorIQ", "Nestlé’s mandatory platform for creator discovery, governance, campaign management and reporting.", "Supports the creator workflow from selection through campaign performance.", "Creator relationships and content must follow brand, legal, rights and disclosure requirements."],
+            storyteq: ["Storyteq", "Template-led creative automation for qualifying high-volume adaptation and localisation.", "Used when repeatable volume justifies templating and master files are technically compatible.", "Operated with NBS/IMS; not every asset should be templated."],
+            contenthub: ["Content Hub", "Nestlé’s asset-management, workflow, metadata and rights environment.", "The workflow destination for approved masters, final assets, metadata and usage-rights information.", "Delivery is not complete until files, tags, rights, NCID and relevant editable masters are present."]
+        };
+
+        document.querySelectorAll(".tool-card").forEach((button) => {
+            button.addEventListener("click", () => {
+                const detail = toolDetails[button.dataset.tool];
+                if (!detail) return;
+                document.getElementById("tool-modal-title").textContent = detail[0];
+                document.getElementById("tool-detail-purpose").textContent = detail[1];
+                document.getElementById("tool-detail-workflow").textContent = detail[2];
+                document.getElementById("tool-detail-control").textContent = detail[3];
+                openModal("tool-modal");
+            });
+        });
+
+        let activeLibraryFilter = "all";
+
+        function filterDocuments() {
+            const query = document.getElementById("library-search-input").value.trim().toLowerCase();
+
+            document.querySelectorAll(".doc-row").forEach((row) => {
+                const matchesCategory = activeLibraryFilter === "all" || row.dataset.category === activeLibraryFilter;
+                const matchesQuery = !query || row.dataset.search.includes(query) || row.textContent.toLowerCase().includes(query);
+                row.hidden = !(matchesCategory && matchesQuery);
+            });
+        }
+
+        document.querySelectorAll(".library-filter").forEach((button) => {
+            button.addEventListener("click", () => {
+                document.querySelectorAll(".library-filter").forEach((filter) => filter.classList.remove("active"));
+                button.classList.add("active");
+                activeLibraryFilter = button.dataset.libraryFilter;
+                filterDocuments();
+            });
+        });
+
+        document.getElementById("library-search-input").addEventListener("input", filterDocuments);
+
+        const documentDetails = {
+            phase2: ["Brand Amplification Studios — Phase 2 RFP Brief", "The current client authority for the Zone Europe pitch, including terminology, five-hub working scenario, operating roles, brand-test briefs, technology principles and evaluation weighting.", "Phase 2 operating-model, brand-brief and commercial decisions.", "Current client instruction takes priority where it supersedes Phase 1."],
+            nescafe: ["NESCAFÉ RTD 2026 Toolkit & Brief", "Defines the approved brand and campaign foundations, Explorers audience, master assets, market rollout, content requirements and media guidance.", "Operationalising the existing toolkit across markets, channels, SKUs and partners.", "This is an amplification challenge. Do not create a replacement campaign."],
+            sma: ["SMA Services Campaign Brief", "Defines the local UK and Ireland campaign task, service proposition, target audience, budgets, mandatory outputs and regulatory context.", "Developing a local campaign under the existing brand platform and Gut Health Promise.", "Product must not appear in assets; regulatory approval is a central workflow requirement."],
+            unforgettable: ["Unforgettable Communication Process", "Nestlé’s active path from integrated briefing through idea, development, production and optimisation.", "Decision gates, agency roles, campaign typology and content-development discipline.", "Use this process rather than superseded BEP3&4 terminology."],
+            production: ["Original Content Production Playbook", "Defines when and how studios originate content, required capabilities, production solutions, direct decoupling, modularity and approved technology.", "Production triage, role design, annual planning and scalable content creation.", "Original production is an enabler, not the purpose of the studio."],
+            impact: ["How to Deliver More Business Impact with Content Studios", "Sets the evolved studio value proposition and the shift from asset factory to strategic content partner.", "Capability design, integrated planning, multiplicity, creators, AI and performance.", "Use as global guidance while respecting the newer Phase 2 operating model."],
+            digitaltwin: ["IMS Digital Twin Service Line", "Explains the NVIDIA Omniverse service, digital-twin creation and conversion, content composition and IMS localisation model.", "Advanced product content and reusable product imagery.", "Use the approved IMS route and validate current service availability."],
+            ai: ["Generative AI for Nestlé Marketing Content", "Defines approved production tools, legal risks, prohibited synthetic humans and pets, rights requirements and responsible-use controls.", "Any AI-supported marketing-content workflow.", "Current legal, IT and marketing guidance must be checked before production."],
+            toolsdoc: ["Nestlé Content Technology Ecosystem", "Brings together the approved workflow stack across listening, creation, testing, creators, adaptation and asset management.", "Tool selection and end-to-end workflow design.", "Nestlé Tools First; agency tools must not duplicate approved capability."],
+            phase1: ["WPP Zone Europe Phase 1 Submission", "Records the model, evidence and commitments already submitted by WPP in the first phase.", "Commitment checks, evidence mining and identifying what Phase 2 has superseded.", "The Phase 2 five-hub scenario supersedes the Phase 1 four-studio proposal."],
+            china: ["Nestlé Greater China — NEST Operating Model", "A recent WPP precedent for a connected operating system built around one team, hub, process and platform.", "Transferable workflow, agent and orchestration lessons.", "Use as precedent only; do not import unsupported China-specific claims into Zone Europe."],
+            cases: ["Content Studio Case & Pitch Archive", "Historical studio proposals, operating practices, implementation plans and case-study evidence across markets.", "Finding relevant proof, transferable methods and anti-patterns.", "Validate every claim and metric against the original source before client use."]
+        };
+
+        function openDocument(documentKey) {
+            const detail = documentDetails[documentKey];
+            if (!detail) return;
+
+            document.getElementById("document-modal-title").textContent = detail[0];
+            document.getElementById("document-detail-summary").textContent = detail[1];
+            document.getElementById("document-detail-use").textContent = detail[2];
+            document.getElementById("document-detail-authority").textContent = detail[3];
+            openModal("document-modal");
+        }
+
+        document.querySelectorAll("[data-doc]").forEach((button) => {
+            button.addEventListener("click", () => openDocument(button.dataset.doc));
+        });
+
+        function answerAtelier(question) {
+            const normalized = question.toLowerCase();
+            let answer = "Start by confirming the content typology, brand governance, available assets, market requirement, accountable Nestlé approver and required live date. The router can then assign the correct pathway and partners.";
+
+            if (normalized.includes("creator")) {
+                answer = "Nestlé sets brand strategy, guardrails and approval. AMP develops the creator role, brief and content system; CreatorIQ governs discovery and reporting; the creator agency manages outreach and talent. Media joins upstream when paid amplification is planned.";
+            } else if (normalized.includes("prime") || normalized.includes("amplification")) {
+                answer = "For prime amplification, the Creative AOR owns the approved campaign platform and big idea. AMP builds the multiplicity plan and extended assets. NBS/IMS handles qualifying industrial adaptation and localisation. Nestlé approves; Media activates and returns performance signals.";
+            } else if (normalized.includes("ai") || normalized.includes("tool")) {
+                answer = "Use Nestlé-approved tools first. Adobe Firefly and Getty support approved consumer-facing generation; CreativeX manages hygiene; LinkAI supports qualification; Talkwalker informs insight; CreatorIQ governs creators; Content Hub remains the asset and rights system.";
+            } else if (normalized.includes("sma")) {
+                answer = "SMA follows the local-campaign pathway under the existing “Wonder of Babies’ Tummy” platform and Gut Health Promise. Product cannot appear in assets, so medical, legal and regulatory controls must be built into every development and production gate.";
+            } else if (normalized.includes("nescafé") || normalized.includes("rtd")) {
+                answer = "NESCAFÉ RTD is an amplification challenge. Use the existing toolkit and campaign masters, then create a market-by-market content architecture covering social, creators, shopper, commerce, CRM and evergreen. Do not invent a replacement campaign.";
+            }
+
+            const answerBox = document.getElementById("assistant-answer");
+            answerBox.textContent = answer;
+            answerBox.hidden = false;
+        }
+
+        document.getElementById("assistant-send-button").addEventListener("click", () => {
+            const input = document.getElementById("assistant-query");
+            if (input.value.trim()) answerAtelier(input.value.trim());
+        });
+
+        document.getElementById("assistant-query").addEventListener("keydown", (event) => {
+            if (event.key === "Enter" && event.target.value.trim()) answerAtelier(event.target.value.trim());
+        });
+
+        document.querySelectorAll(".prompt-chip").forEach((button) => {
+            button.addEventListener("click", () => {
+                document.getElementById("assistant-query").value = button.dataset.prompt;
+                answerAtelier(button.dataset.prompt);
+            });
+        });
+
+        document.getElementById("open-support-button").addEventListener("click", () => {
+            switchView("home");
+            window.setTimeout(() => document.getElementById("assistant-query").focus(), 250);
+        });
+
+        renderSearchResults("");
+        applyRoute("prime");
+    </script>
+
+</body></html>
